@@ -260,6 +260,29 @@ body {
 .contact-info a:hover { border-color: var(--text-primary); }
 
 
+
+.carousel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0,0,0,0.015) 15%,
+    rgba(0,0,0,0.04) 35%,
+    rgba(0,0,0,0.06) 50%,
+    rgba(0,0,0,0.04) 65%,
+    rgba(0,0,0,0.015) 85%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
 /* ===================== PAGE CREDIT ===================== */
 .page-credit {
   position: absolute;
