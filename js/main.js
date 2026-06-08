@@ -1,25 +1,21 @@
 /* =============================================
-   Minimal Photography Portfolio — Main Script
+   Photography Portfolio — Main Script
    ============================================= */
 
 document.addEventListener('DOMContentLoaded', function () {
 
   /* ===================== CONFIG ===================== */
-  // Gallery images for the homepage grid
-  // Replace these URLs with your own photos
-  var galleryImages = [
-    { src: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=80', title: 'Morning Light', year: '2026' },
-    { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', title: 'The Edge', year: '2026' },
-    { src: 'https://images.unsplash.com/photo-1470071459604-7b8ec44ffd6b?w=600&q=80', title: 'Stillness', year: '2025' },
-    { src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80', title: 'Forest Path', year: '2025' },
-    { src: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80', title: 'Canyon', year: '2025' },
-    { src: 'https://images.unsplash.com/photo-1518173946687-a36f968f7e3b?w=600&q=80', title: 'Golden Hour', year: '2025' },
-    { src: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&q=80', title: 'Urban Lines', year: '2024' },
-    { src: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&q=80', title: 'Horizon', year: '2024' },
-    { src: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&q=80', title: 'Night Sky', year: '2024' },
-    { src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80', title: 'Urban Flow', year: '2024' },
-    { src: 'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=600&q=80', title: 'Reflection', year: '2023' },
-    { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80', title: 'Open Field', year: '2023' }
+  var slides = [
+    { src: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1400&q=85', title: 'Morning Light' },
+    { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=85', title: 'The Edge' },
+    { src: 'https://images.unsplash.com/photo-1470071459604-7b8ec44ffd6b?w=1400&q=85', title: 'Stillness' },
+    { src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1400&q=85', title: 'Forest Path' },
+    { src: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1400&q=85', title: 'Canyon' },
+    { src: 'https://images.unsplash.com/photo-1518173946687-a36f968f7e3b?w=1400&q=85', title: 'Golden Hour' },
+    { src: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1400&q=85', title: 'Urban Lines' },
+    { src: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1400&q=85', title: 'Horizon' },
+    { src: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1400&q=85', title: 'Night Sky' },
+    { src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&q=85', title: 'Urban Flow' }
   ];
 
   /* ===================== SIDEBAR TOGGLE (Mobile) ===================== */
@@ -31,138 +27,225 @@ document.addEventListener('DOMContentLoaded', function () {
     function openNav() {
       sidebar.classList.add('open');
       navOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
     function closeNav() {
       sidebar.classList.remove('open');
       navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
     }
     navToggle.addEventListener('click', function (e) {
       e.stopPropagation();
-      if (sidebar.classList.contains('open')) {
-        closeNav();
-      } else {
-        openNav();
-      }
+      sidebar.classList.contains('open') ? closeNav() : openNav();
     });
     navOverlay.addEventListener('click', closeNav);
-
-    // Close on Escape key
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && sidebar.classList.contains('open')) {
-        closeNav();
+      if (e.key === 'Escape' && sidebar.classList.contains('open')) closeNav();
+    });
+  }
+
+  /* ===================== FULL-SCREEN CAROUSEL ===================== */
+  var carouselEl = document.getElementById('homeCarousel');
+  if (carouselEl) {
+    var imgA = document.getElementById('carouselImgA');
+    var imgB = document.getElementById('carouselImgB');
+    var btnPrev = document.getElementById('carouselPrev');
+    var btnNext = document.getElementById('carouselNext');
+    var dotsContainer = document.getElementById('carouselDots');
+    var stage = document.getElementById('carouselStage');
+
+    if (imgA && imgB && slides.length > 0) {
+      var n = slides.length;
+      var current = 0;
+      var isActiveA = true;
+      var isCrossfading = false;
+      var paused = false;
+      var waitTimer = null;
+      var crossTimer = null;
+      var resumeTimer = null;
+
+      // Preload all images for smooth transitions
+      for (var i = 0; i < n; i++) {
+        var pre = new Image();
+        pre.src = slides[i].src;
       }
-    });
-  }
 
-  /* ===================== PHOTO GRID (Homepage) ===================== */
-  var grid = document.getElementById('photoGrid');
-  if (grid) {
-    galleryImages.forEach(function (img, index) {
-      var item = document.createElement('div');
-      item.className = 'photo-item fade-in';
+      // Init: set first slide visible, preload second into hidden img
+      imgA.src = slides[0].src;
+      imgA.alt = slides[0].title;
+      imgB.src = slides[1 % n].src;
+      imgB.alt = slides[1 % n].title;
 
-      var imgEl = document.createElement('img');
-      imgEl.src = img.src;
-      imgEl.alt = img.title;
-      imgEl.loading = 'lazy';
-      imgEl.className = 'protected-img';
-      imgEl.dataset.index = index;
-
-      var info = document.createElement('div');
-      info.className = 'photo-item-info';
-      info.innerHTML = '<div class="photo-item-title">' + img.title + '</div>' +
-                       '<div class="photo-item-year">' + img.year + '</div>';
-
-      item.appendChild(imgEl);
-      item.appendChild(info);
-      grid.appendChild(item);
-    });
-  }
-
-  /* ===================== LIGHTBOX ===================== */
-  var lightbox = document.getElementById('lightbox');
-  var lightboxImg = document.getElementById('lightboxImg');
-  var lightboxClose = document.getElementById('lightboxClose');
-  var lightboxPrev = document.getElementById('lightboxPrev');
-  var lightboxNext = document.getElementById('lightboxNext');
-  var currentIndex = -1;
-
-  function openLightbox(index) {
-    if (!lightbox || !lightboxImg) return;
-    var item = galleryImages[index];
-    if (!item) return;
-    currentIndex = index;
-    // Use higher resolution for lightbox
-    lightboxImg.src = item.src.replace('w=600', 'w=1200');
-    lightboxImg.alt = item.title;
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLightbox() {
-    if (!lightbox) return;
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-    currentIndex = -1;
-  }
-
-  function navigateLightbox(direction) {
-    if (currentIndex < 0) return;
-    var next = currentIndex + direction;
-    if (next < 0) next = galleryImages.length - 1;
-    if (next >= galleryImages.length) next = 0;
-    openLightbox(next);
-  }
-
-  // Click on photo grid items to open lightbox
-  if (grid) {
-    grid.addEventListener('click', function (e) {
-      var img = e.target.closest('.photo-item img');
-      if (img && img.dataset.index !== undefined) {
-        openLightbox(parseInt(img.dataset.index, 10));
+      // Build dots
+      if (dotsContainer) {
+        for (var d = 0; d < n; d++) {
+          var dot = document.createElement('span');
+          dot.className = 'carousel-dot' + (d === 0 ? ' active' : '');
+          dot.dataset.index = d;
+          dot.addEventListener('click', function () {
+            var idx = parseInt(this.dataset.index, 10);
+            if (idx !== current && !isCrossfading) {
+              paused = false;
+              crossfadeTo(idx);
+            }
+          });
+          dotsContainer.appendChild(dot);
+        }
       }
-    });
-  }
 
-  // Lightbox controls
-  if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
-  if (lightboxPrev) lightboxPrev.addEventListener('click', function () { navigateLightbox(-1); });
-  if (lightboxNext) lightboxNext.addEventListener('click', function () { navigateLightbox(1); });
-
-  // Close lightbox on overlay click (click outside image)
-  if (lightbox) {
-    lightbox.addEventListener('click', function (e) {
-      if (e.target === lightbox || e.target === lightboxImg) {
-        // Only close if clicking the background, not the image
-        if (e.target === lightbox) closeLightbox();
+      function updateDots() {
+        if (!dotsContainer) return;
+        var allDots = dotsContainer.querySelectorAll('.carousel-dot');
+        for (var i = 0; i < allDots.length; i++) {
+          allDots[i].className = 'carousel-dot' + (i === current ? ' active' : '');
+        }
       }
-    });
-  }
 
-  // Keyboard navigation for lightbox
-  document.addEventListener('keydown', function (e) {
-    if (!lightbox || !lightbox.classList.contains('active')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') navigateLightbox(-1);
-    if (e.key === 'ArrowRight') navigateLightbox(1);
-  });
+      function schedule() {
+        clearTimeout(waitTimer);
+        waitTimer = null;
+        if (paused) return;
+        waitTimer = setTimeout(function () {
+          waitTimer = null;
+          if (!paused) crossfadeTo((current + 1) % n);
+        }, 6000);
+      }
+
+      function crossfadeTo(next) {
+        if (next === current || isCrossfading || next < 0 || next >= n) return;
+        clearTimeout(waitTimer);
+        waitTimer = null;
+        isCrossfading = true;
+        if (btnPrev) btnPrev.disabled = true;
+        if (btnNext) btnNext.disabled = true;
+
+        var active = isActiveA ? imgA : imgB;
+        var incoming = isActiveA ? imgB : imgA;
+
+        // Set incoming image (already preloaded)
+        incoming.src = slides[next].src;
+        incoming.alt = slides[next].title;
+
+        // Crossfade using CSS transitions
+        active.className = 'active fade';
+        incoming.className = 'inactive fade';
+
+        // Force layout then trigger
+        void incoming.offsetWidth;  // Force reflow
+
+        active.style.zIndex = '2';
+        incoming.style.zIndex = '1';
+
+        // Start: fade out active, fade in incoming
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            active.style.opacity = '0';
+            incoming.style.opacity = '1';
+          });
+        });
+
+        clearTimeout(crossTimer);
+        crossTimer = setTimeout(function () {
+          crossTimer = null;
+          isCrossfading = false;
+          current = next;
+          isActiveA = !isActiveA;
+
+          // Clean up: hidden image becomes preload buffer
+          var hidden = isActiveA ? imgB : imgA;
+          var prepIdx = (current + 1) % n;
+          hidden.src = slides[prepIdx].src;
+          hidden.alt = slides[prepIdx].title;
+          hidden.style.opacity = '0';
+          hidden.style.zIndex = '0';
+          hidden.className = 'inactive';
+
+          active.style.zIndex = '0';
+          active.className = 'active';
+
+          updateDots();
+          if (btnPrev) btnPrev.disabled = false;
+          if (btnNext) btnNext.disabled = false;
+          if (!paused) schedule();
+        }, 1300);
+      }
+
+      // Manual navigation
+      if (btnPrev) {
+        btnPrev.addEventListener('click', function () {
+          paused = false;
+          crossfadeTo((current - 1 + n) % n);
+        });
+      }
+      if (btnNext) {
+        btnNext.addEventListener('click', function () {
+          paused = false;
+          crossfadeTo((current + 1) % n);
+        });
+      }
+
+      // Keyboard
+      window.addEventListener('keydown', function (e) {
+        if (e.defaultPrevented) return;
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        if (!carouselEl.contains(e.target) && e.target !== document.body) return;
+        e.preventDefault();
+        paused = false;
+        if (e.key === 'ArrowLeft') crossfadeTo((current - 1 + n) % n);
+        else crossfadeTo((current + 1) % n);
+      });
+
+      // Touch swipe
+      (function () {
+        var tx = 0;
+        stage.addEventListener('touchstart', function (e) {
+          if (!e.touches || !e.touches[0]) return;
+          tx = e.touches[0].clientX;
+        }, { passive: true });
+        stage.addEventListener('touchend', function (e) {
+          if (!e.changedTouches || !e.changedTouches[0]) return;
+          var dx = e.changedTouches[0].clientX - tx;
+          if (Math.abs(dx) < 48) return;
+          paused = false;
+          if (dx < 0) crossfadeTo((current + 1) % n);
+          else crossfadeTo((current - 1 + n) % n);
+        }, { passive: true });
+      })();
+
+      // Pause on hover (desktop)
+      carouselEl.addEventListener('mouseenter', function () {
+        paused = true;
+        clearTimeout(waitTimer);
+        waitTimer = null;
+        clearTimeout(resumeTimer);
+        resumeTimer = null;
+      });
+      carouselEl.addEventListener('mouseleave', function () {
+        clearTimeout(resumeTimer);
+        resumeTimer = null;
+        resumeTimer = setTimeout(function () {
+          resumeTimer = null;
+          paused = false;
+          if (!isCrossfading) schedule();
+        }, 2500);
+      });
+
+      // Start
+      schedule();
+    }
+  }
 
   /* ===================== FADE-IN ON SCROLL ===================== */
   function checkFadeIn() {
     var elements = document.querySelectorAll('.fade-in:not(.visible)');
     elements.forEach(function (el) {
       var rect = el.getBoundingClientRect();
-      var windowHeight = window.innerHeight || document.documentElement.clientHeight;
-      if (rect.top < windowHeight - 60) {
-        el.classList.add('visible');
-      }
+      var wh = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.top < wh - 60) el.classList.add('visible');
     });
   }
-
-  // Initial check
   setTimeout(checkFadeIn, 100);
-
-  // Check on scroll
   var scrollTimeout;
   window.addEventListener('scroll', function () {
     clearTimeout(scrollTimeout);
@@ -177,35 +260,21 @@ document.addEventListener('DOMContentLoaded', function () {
       var name = document.getElementById('formName').value.trim();
       var email = document.getElementById('formEmail').value.trim();
       var message = document.getElementById('formMessage').value.trim();
-
-      // Simple client-side validation
       if (!name || !email || !message) {
         alert('Please fill in all fields.');
         return;
       }
-
-      // For now, show a success message
-      // Replace this with actual form handling (e.g., Formspree, EmailJS)
       alert('Thank you for your message, ' + name + '! I\'ll get back to you soon.');
       contactForm.reset();
     });
   }
 
   /* ===================== IMAGE PROTECTION ===================== */
-  // Disable right-click on protected images
   document.addEventListener('contextmenu', function (e) {
-    var target = e.target;
-    if (target.classList && target.classList.contains('protected-img')) {
-      e.preventDefault();
-    }
+    if (e.target.classList && e.target.classList.contains('protected-img')) e.preventDefault();
   });
-
-  // Disable drag on protected images
   document.addEventListener('dragstart', function (e) {
-    if (e.target.classList && e.target.classList.contains('protected-img')) {
-      e.preventDefault();
-    }
+    if (e.target.classList && e.target.classList.contains('protected-img')) e.preventDefault();
   });
 
-  console.log('Photography portfolio loaded.');
 });
