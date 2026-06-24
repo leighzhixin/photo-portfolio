@@ -5,18 +5,20 @@
 document.addEventListener('DOMContentLoaded', function () {
 
   /* ===================== CONFIG ===================== */
-  var slides = [
-    { src: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1400&q=85', title: 'Morning Light' },
-    { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=85', title: 'The Edge' },
-    { src: 'https://images.unsplash.com/photo-1470071459604-7b8ec44ffd6b?w=1400&q=85', title: 'Stillness' },
-    { src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1400&q=85', title: 'Forest Path' },
-    { src: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1400&q=85', title: 'Canyon' },
-    { src: 'https://images.unsplash.com/photo-1518173946687-a36f968f7e3b?w=1400&q=85', title: 'Golden Hour' },
-    { src: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1400&q=85', title: 'Urban Lines' },
-    { src: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1400&q=85', title: 'Horizon' },
-    { src: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1400&q=85', title: 'Night Sky' },
-    { src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&q=85', title: 'Urban Flow' }
+    var slides = [
+    { src: '/images/home-1.jpg' },
+    { src: '/images/home-2.jpg' },
+    { src: '/images/home-3.jpg' },
+    { src: '/images/home-4.jpg' },
+    { src: '/images/home-5.jpg' },
+    { src: '/images/home-6.jpg' },
+    { src: '/images/home-7.jpg' },
+    { src: '/images/home-8.jpg' },
+    { src: '/images/home-9.jpg' },
+    { src: '/images/home-10.jpg' },
+    { src: '/images/home-11.jpg' }
   ];
+
 
   /* ===================== SIDEBAR TOGGLE (Mobile) ===================== */
   var sidebar = document.getElementById('sidebar');
