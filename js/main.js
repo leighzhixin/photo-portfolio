@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function schedule() {
       clearTimeout(autoTimer); autoTimer = null;
       if (paused) return;
-      autoTimer = setTimeout(function () { autoTimer = null; if (!paused) goTo((current + 1) % n); }, 5000);
+      autoTimer = setTimeout(function () { autoTimer = null; if (!paused) goTo((current + 1) % n); }, 7000);
     }
 
     function goTo(next) {
