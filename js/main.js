@@ -46,196 +46,111 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ===================== FULL-SCREEN CAROUSEL ===================== */
+  /* ===================== CAROUSEL ===================== */
   var carouselEl = document.getElementById('homeCarousel');
-  if (carouselEl) {
-    var imgA = document.getElementById('carouselImgA');
-    var imgB = document.getElementById('carouselImgB');
+  if (carouselEl && slides.length > 0) {
+    var img = carouselEl.querySelector('.carousel-stage img');
     var btnPrev = document.getElementById('carouselPrev');
     var btnNext = document.getElementById('carouselNext');
     var dotsContainer = document.getElementById('carouselDots');
     var stage = document.getElementById('carouselStage');
 
-    if (imgA && imgB && slides.length > 0) {
-      var n = slides.length;
-      var current = 0;
-      var isActiveA = true;
-      var isCrossfading = false;
-      var paused = false;
-      var waitTimer = null;
-      var crossTimer = null;
-      var resumeTimer = null;
+    var n = slides.length;
+    var current = 0;
+    var animating = false;
+    var paused = false;
+    var autoTimer = null;
+    var resumeTimer = null;
 
-      // Preload all images for smooth transitions
-      for (var i = 0; i < n; i++) {
-        var pre = new Image();
-        pre.src = slides[i].src;
-      }
+    // Preload
+    slides.forEach(function (s) { var p = new Image(); p.src = s.src; });
 
-      // Init: set first slide visible, preload second into hidden img
-      imgA.src = slides[0].src;
-      imgA.alt = slides[0].title;
-      imgB.src = slides[1 % n].src;
-      imgB.alt = slides[1 % n].title;
+    // Init
+    img.src = slides[0].src;
 
-      // Build dots
-      if (dotsContainer) {
-        for (var d = 0; d < n; d++) {
-          var dot = document.createElement('span');
-          dot.className = 'carousel-dot' + (d === 0 ? ' active' : '');
-          dot.dataset.index = d;
-          dot.addEventListener('click', function () {
-            var idx = parseInt(this.dataset.index, 10);
-            if (idx !== current && !isCrossfading) {
-              paused = false;
-              crossfadeTo(idx);
-            }
-          });
-          dotsContainer.appendChild(dot);
-        }
-      }
-
-      function updateDots() {
-        if (!dotsContainer) return;
-        var allDots = dotsContainer.querySelectorAll('.carousel-dot');
-        for (var i = 0; i < allDots.length; i++) {
-          allDots[i].className = 'carousel-dot' + (i === current ? ' active' : '');
-        }
-      }
-
-      function schedule() {
-        clearTimeout(waitTimer);
-        waitTimer = null;
-        if (paused) return;
-        waitTimer = setTimeout(function () {
-          waitTimer = null;
-          if (!paused) crossfadeTo((current + 1) % n);
-        }, 6000);
-      }
-
-      function crossfadeTo(next) {
-        if (next === current || isCrossfading || next < 0 || next >= n) return;
-        clearTimeout(waitTimer);
-        waitTimer = null;
-        isCrossfading = true;
-        if (btnPrev) btnPrev.disabled = true;
-        if (btnNext) btnNext.disabled = true;
-
-        var active = isActiveA ? imgA : imgB;
-        var incoming = isActiveA ? imgB : imgA;
-
-        // Set incoming image (already preloaded)
-        incoming.src = slides[next].src;
-        incoming.alt = slides[next].title;
-
-        // Crossfade using CSS transitions
-        active.className = 'active fade';
-        incoming.className = 'inactive fade';
-
-        // Force layout then trigger
-        void incoming.offsetWidth;  // Force reflow
-
-        active.style.zIndex = '2';
-        incoming.style.zIndex = '1';
-
-        // Start: fade out active, fade in incoming
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () {
-            active.style.opacity = '0';
-            incoming.style.opacity = '1';
-          });
+    // Build dots
+    if (dotsContainer) {
+      for (var d = 0; d < n; d++) {
+        var dot = document.createElement('span');
+        dot.className = 'carousel-dot' + (d === 0 ? ' active' : '');
+        dot.dataset.index = d;
+        dot.addEventListener('click', function () {
+          var idx = parseInt(this.dataset.index, 10);
+          if (idx !== current && !animating) { paused = false; goTo(idx); }
         });
-
-        clearTimeout(crossTimer);
-        crossTimer = setTimeout(function () {
-          crossTimer = null;
-          isCrossfading = false;
-          current = next;
-          isActiveA = !isActiveA;
-
-          // Clean up: hidden image becomes preload buffer
-          var hidden = isActiveA ? imgB : imgA;
-          var prepIdx = (current + 1) % n;
-          hidden.src = slides[prepIdx].src;
-          hidden.alt = slides[prepIdx].title;
-          hidden.style.opacity = '0';
-          hidden.style.zIndex = '0';
-          hidden.className = 'inactive';
-
-          active.style.zIndex = '0';
-          active.className = 'active';
-
-          updateDots();
-          if (btnPrev) btnPrev.disabled = false;
-          if (btnNext) btnNext.disabled = false;
-          if (!paused) schedule();
-        }, 1300);
+        dotsContainer.appendChild(dot);
       }
-
-      // Manual navigation
-      if (btnPrev) {
-        btnPrev.addEventListener('click', function () {
-          paused = false;
-          crossfadeTo((current - 1 + n) % n);
-        });
-      }
-      if (btnNext) {
-        btnNext.addEventListener('click', function () {
-          paused = false;
-          crossfadeTo((current + 1) % n);
-        });
-      }
-
-      // Keyboard
-      window.addEventListener('keydown', function (e) {
-        if (e.defaultPrevented) return;
-        if (e.metaKey || e.ctrlKey || e.altKey) return;
-        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-        if (!carouselEl.contains(e.target) && e.target !== document.body) return;
-        e.preventDefault();
-        paused = false;
-        if (e.key === 'ArrowLeft') crossfadeTo((current - 1 + n) % n);
-        else crossfadeTo((current + 1) % n);
-      });
-
-      // Touch swipe
-      (function () {
-        var tx = 0;
-        stage.addEventListener('touchstart', function (e) {
-          if (!e.touches || !e.touches[0]) return;
-          tx = e.touches[0].clientX;
-        }, { passive: true });
-        stage.addEventListener('touchend', function (e) {
-          if (!e.changedTouches || !e.changedTouches[0]) return;
-          var dx = e.changedTouches[0].clientX - tx;
-          if (Math.abs(dx) < 48) return;
-          paused = false;
-          if (dx < 0) crossfadeTo((current + 1) % n);
-          else crossfadeTo((current - 1 + n) % n);
-        }, { passive: true });
-      })();
-
-      // Pause on hover (desktop)
-      carouselEl.addEventListener('mouseenter', function () {
-        paused = true;
-        clearTimeout(waitTimer);
-        waitTimer = null;
-        clearTimeout(resumeTimer);
-        resumeTimer = null;
-      });
-      carouselEl.addEventListener('mouseleave', function () {
-        clearTimeout(resumeTimer);
-        resumeTimer = null;
-        resumeTimer = setTimeout(function () {
-          resumeTimer = null;
-          paused = false;
-          if (!isCrossfading) schedule();
-        }, 2500);
-      });
-
-      // Start
-      schedule();
     }
+
+    function updateDots() {
+      if (!dotsContainer) return;
+      var all = dotsContainer.querySelectorAll('.carousel-dot');
+      for (var i = 0; i < all.length; i++)
+        all[i].className = 'carousel-dot' + (i === current ? ' active' : '');
+    }
+
+    function schedule() {
+      clearTimeout(autoTimer); autoTimer = null;
+      if (paused) return;
+      autoTimer = setTimeout(function () { autoTimer = null; if (!paused) goTo((current + 1) % n); }, 5000);
+    }
+
+    function goTo(next) {
+      if (next === current || animating || next < 0 || next >= n) return;
+      clearTimeout(autoTimer); autoTimer = null;
+      animating = true;
+      if (btnPrev) btnPrev.disabled = true;
+      if (btnNext) btnNext.disabled = true;
+
+      img.style.opacity = '0';
+      setTimeout(function () {
+        img.src = slides[next].src;
+        img.style.opacity = '1';
+        current = next;
+        animating = false;
+        updateDots();
+        if (btnPrev) btnPrev.disabled = false;
+        if (btnNext) btnNext.disabled = false;
+        if (!paused) schedule();
+      }, 1000);
+    }
+
+    if (btnPrev) btnPrev.addEventListener('click', function () { paused = false; goTo((current - 1 + n) % n); });
+    if (btnNext) btnNext.addEventListener('click', function () { paused = false; goTo((current + 1) % n); });
+
+    window.addEventListener('keydown', function (e) {
+      if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      e.preventDefault(); paused = false;
+      if (e.key === 'ArrowLeft') goTo((current - 1 + n) % n);
+      else goTo((current + 1) % n);
+    });
+
+    // Touch swipe
+    (function () {
+      var tx = 0;
+      if (!stage) return;
+      stage.addEventListener('touchstart', function (e) {
+        if (!e.touches || !e.touches[0]) return;
+        tx = e.touches[0].clientX;
+      }, { passive: true });
+      stage.addEventListener('touchend', function (e) {
+        if (!e.changedTouches || !e.changedTouches[0]) return;
+        var dx = e.changedTouches[0].clientX - tx;
+        if (Math.abs(dx) < 48) return;
+        paused = false;
+        if (dx < 0) goTo((current + 1) % n);
+        else goTo((current - 1 + n) % n);
+      }, { passive: true });
+    })();
+
+    carouselEl.addEventListener('mouseenter', function () { paused = true; clearTimeout(autoTimer); autoTimer = null; clearTimeout(resumeTimer); resumeTimer = null; });
+    carouselEl.addEventListener('mouseleave', function () {
+      clearTimeout(resumeTimer); resumeTimer = null;
+      resumeTimer = setTimeout(function () { resumeTimer = null; paused = false; if (!animating) schedule(); }, 2000);
+    });
+
+    schedule();
   }
 
   /* ===================== FADE-IN ON SCROLL ===================== */
