@@ -278,3 +278,29 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 });
+
+  /* ===================== SUB-MENU TOGGLE (Project) ===================== */
+  var toggle = document.querySelector('.sub-menu-toggle');
+  var subMenu = document.getElementById('subMenuProject');
+  if (toggle && subMenu) {
+    toggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      subMenu.classList.toggle('open');
+    });
+    document.addEventListener('click', function (e) {
+      if (!subMenu.contains(e.target) && !toggle.contains(e.target)) {
+        subMenu.classList.remove('open');
+      }
+    });
+  }
+
+  /* ===================== SUB-MENU ACTIVE STATE ===================== */
+  if (subMenu) {
+    var links = subMenu.querySelectorAll('a');
+    var page = window.location.pathname.split('/').pop();
+    links.forEach(function (a) {
+      var href = a.getAttribute('href');
+      if (href === '/' + page) a.classList.add('active');
+    });
+  }
