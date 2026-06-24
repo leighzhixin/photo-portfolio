@@ -104,7 +104,7 @@ body {
   margin-left: var(--sidebar-w);
   flex: 1;
   min-height: 100vh;
-  padding: 60px 48px 80px;
+  padding: 60px 96px 80px 96px;
   max-width: 1200px;
 }
 
@@ -112,7 +112,7 @@ body {
 .main-content.home-content {
   margin-left: var(--sidebar-w);
   flex: 1;
-  padding: 48px;
+  padding: 48px 48px 48px 96px;
   max-width: none;
   min-height: 100vh;
 }
@@ -435,7 +435,7 @@ body {
 /* ===================== SUB-MENU (Click-to-reveal) ===================== */
 .sub-menu {
   position: fixed;
-  left: var(--sidebar-w);
+  left: calc(var(--sidebar-w) - 50px);
   top: 40px;
   background: transparent;
   z-index: 100;
