@@ -1,131 +1,45 @@
 /* =============================================
-   Series Detail Page — Archivo-inspired layout
-   Alternating meta / image blog-style posts
+   Series Detail Page — Minimal clean gallery
+   Right-aligned, no text, no borders
    ============================================= */
 
-/* Series page main content override */
-.series-main {
-  max-width: 1100px;
-  padding-right: 60px;
-}
 
 /* ===================== SERIES HEADER ===================== */
 .series-header {
-  margin-bottom: 52px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 32px;
+  text-align: right;
 }
 
 .series-title {
   font-family: var(--font-sc);
-  font-size: 28px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 1px;
   color: var(--text-primary);
-}
-
-.series-subtitle {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  max-width: 480px;
 }
 
 /* ===================== PHOTO LIST ===================== */
 .series-photo-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 8px;
 }
 
-/* Each photo = two-column row (Archivo post-list pattern) */
 .series-photo {
-  display: grid;
-  grid-template-columns: 34% 66%;
-  gap: 36px;
-  padding: 36px 0;
-  border-bottom: 1px solid var(--border-color);
-  align-items: start;
+  text-align: right;
 }
 
-.series-photo:first-child {
-  padding-top: 0;
-}
-
-.series-photo:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-/* Left column — metadata */
-.series-photo-meta {
-  padding-top: 4px;
-}
-
-.photo-title {
-  font-family: var(--font-sc);
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  margin-bottom: 12px;
-  color: var(--text-primary);
-  line-height: 1.4;
-}
-
-.photo-desc {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  margin-bottom: 20px;
-}
-
-.photo-info {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
-.photo-date {
-  font-size: 12px;
-  color: var(--text-muted);
-  letter-spacing: 0.5px;
-}
-
-.photo-category {
-  display: inline-block;
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  background: var(--hover-bg);
-  padding: 2px 10px;
-  border-radius: 3px;
-}
-
-/* Right column — featured image */
-.series-photo-image {
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-}
-
-.series-photo-image img {
+.series-photo img {
   width: 100%;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.series-photo-image:hover img {
-  transform: scale(1.02);
+  max-width: 720px;
+  display: inline-block;
+  border-radius: 3px;
 }
 
 /* ===================== NAVIGATION ===================== */
 .series-nav {
-  margin-top: 48px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border-color);
+  margin-top: 40px;
+  text-align: right;
 }
 
 .series-back-link {
@@ -154,28 +68,18 @@
   }
 
   .series-header {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
 
   .series-title {
-    font-size: 22px;
+    font-size: 13px;
   }
 
-  .series-photo {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 24px 0;
+  .series-photo-list {
+    gap: 6px;
   }
 
-  .series-photo-meta {
-    padding-top: 0;
-  }
-
-  .photo-title {
-    font-size: 16px;
-  }
-
-  .series-photo-image {
-    order: -1;
+  .series-photo img {
+    max-width: 100%;
   }
 }
