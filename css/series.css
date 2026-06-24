@@ -4,6 +4,11 @@
    ============================================= */
 
 
+/* Override main-content to reduce left whitespace */
+.series-main {
+  max-width: none;
+}
+
 /* ===================== SERIES HEADER ===================== */
 .series-header {
   margin-bottom: 32px;
