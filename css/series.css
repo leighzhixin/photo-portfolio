@@ -3,7 +3,6 @@
    Right-aligned, no text, no borders
    ============================================= */
 
-
 /* Override main-content to reduce left whitespace */
 .series-main {
   max-width: none;
@@ -63,6 +62,21 @@
 
 .series-back-link:hover {
   background: var(--hover-bg);
+}
+
+/* ===================== SIDEBAR SECTION LABEL ===================== */
+.sidebar-section-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 24px 0 2px 10px;
+}
+
+.sidebar-nav li.sub-item {
+  padding-left: 18px;
 }
 
 /* ===================== RESPONSIVE ===================== */
