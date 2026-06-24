@@ -111,7 +111,7 @@ body {
 .main-content.home-content {
   margin-left: var(--sidebar-w);
   flex: 1;
-  padding: 20px 20px 20px 96px;
+  padding: 40px 20px 20px 96px;
   max-width: none;
   min-height: 100vh;
 }

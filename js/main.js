@@ -95,24 +95,42 @@ document.addEventListener('DOMContentLoaded', function () {
       autoTimer = setTimeout(function () { autoTimer = null; if (!paused) goTo((current + 1) % n); }, 7000);
     }
 
-    function goTo(next) {
+    function goTo(next, preloaded) {
       if (next === current || animating || next < 0 || next >= n) return;
       clearTimeout(autoTimer); autoTimer = null;
+
+      // If not preloaded, preload first, then transition
+      if (!preloaded) {
+        var pre = new Image();
+        pre.onload = function () { goTo(next, true); };
+        pre.src = slides[next].src;
+        return;
+      }
+
       animating = true;
       if (btnPrev) btnPrev.disabled = true;
       if (btnNext) btnNext.disabled = true;
 
+      // Fade out quickly
+      img.style.transition = 'opacity 0.35s ease';
       img.style.opacity = '0';
+
       setTimeout(function () {
+        // Swap src without transition to prevent flash
+        img.style.transition = 'none';
         img.src = slides[next].src;
+        void img.offsetWidth; // force reflow
+        // Fade in
+        img.style.transition = 'opacity 0.65s ease';
         img.style.opacity = '1';
+
         current = next;
         animating = false;
         updateDots();
         if (btnPrev) btnPrev.disabled = false;
         if (btnNext) btnNext.disabled = false;
         if (!paused) schedule();
-      }, 1000);
+      }, 350);
     }
 
     if (btnPrev) btnPrev.addEventListener('click', function () { paused = false; goTo((current - 1 + n) % n); });
