@@ -20,7 +20,7 @@ html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 body {
   font-family: var(--font-body);
   color: var(--text-primary);
-  background: var(--bg-primary);
+  background: transparent;
   line-height: 1.7;
   font-size: 15px;
 }
@@ -36,7 +36,7 @@ body {
   top: 0; left: 0;
   width: var(--sidebar-w);
   height: 100vh;
-  background: var(--bg-primary);
+  background: transparent;
   display: flex;
   flex-direction: column;
   padding: 40px 32px;
@@ -57,7 +57,7 @@ body {
 .sidebar-header .site-name .sub {
   font-weight: 400;
   font-size: 11px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   color: var(--text-primary);
   display: block;
   margin-top: 3px;
@@ -137,7 +137,7 @@ body {
   font-family: var(--font-sc);
   font-size: 16px;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   margin-bottom: 18px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border-color);
@@ -168,7 +168,7 @@ body {
 .work-card-title {
   font-family: var(--font-sc);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
 }
 .work-card-meta {
   font-size: 12px;
@@ -224,7 +224,7 @@ body {
   font-family: var(--font-body);
   font-size: 14px;
   color: var(--text-primary);
-  background: var(--bg-primary);
+  background: transparent;
   transition: border-color var(--transition);
   outline: none;
   margin-bottom: 20px;
@@ -243,8 +243,8 @@ body {
   border: none;
   border-radius: 4px;
   font-family: var(--font-sc);
-  font-size: 13px;
-  letter-spacing: 1px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
   cursor: pointer;
   transition: opacity var(--transition);
 }
@@ -404,7 +404,7 @@ body {
     transform: translateX(-100%);
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     width: 280px;
-    background: var(--bg-primary);
+    background: transparent;
   }
   .sidebar.open { transform: translateX(0); }
 
@@ -437,10 +437,10 @@ body {
   position: fixed;
   left: var(--sidebar-w);
   top: 40px;
-  background: var(--bg-primary);
+  background: transparent;
   z-index: 100;
   display: none;
-  padding: 2px 0;
+  padding: 0;
   min-width: 150px;
 }
 .sub-menu.open {
@@ -455,14 +455,14 @@ body {
 .sub-menu a {
   display: block;
   font-family: var(--font-sc);
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 400;
   color: var(--text-primary);
   text-decoration: none;
-  padding: 5px 12px;
+  padding: 2px 10px;
   border-radius: 4px;
   transition: background var(--transition);
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 .sub-menu a:hover,
 .sub-menu a.active {
