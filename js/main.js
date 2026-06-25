@@ -50,8 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var carouselEl = document.getElementById('homeCarousel');
   if (carouselEl && slides.length > 0) {
     var img = carouselEl.querySelector('.carousel-stage img');
-    var btnPrev = document.getElementById('carouselPrev');
-    var btnNext = document.getElementById('carouselNext');
     var dotsContainer = document.getElementById('carouselDots');
     var stage = document.getElementById('carouselStage');
 
@@ -67,6 +65,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Init
     img.src = slides[0].src;
+
+    // Click image to go to next photo
+    img.addEventListener('click', function () {
+      if (animating) return;
+      paused = false;
+      goTo((current + 1) % n);
+    });
 
     // Build dots
     if (dotsContainer) {
@@ -92,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function schedule() {
       clearTimeout(autoTimer); autoTimer = null;
       if (paused) return;
-      autoTimer = setTimeout(function () { autoTimer = null; if (!paused) goTo((current + 1) % n); }, 7000);
+      autoTimer = setTimeout(function () { autoTimer = null; if (!paused) goTo((current + 1) % n); }, 6000);
     }
 
     function goTo(next, preloaded) {
@@ -108,11 +113,9 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       animating = true;
-      if (btnPrev) btnPrev.disabled = true;
-      if (btnNext) btnNext.disabled = true;
 
       // Fade out quickly
-      img.style.transition = 'opacity 0.35s ease';
+      img.style.transition = 'opacity 0.25s ease';
       img.style.opacity = '0';
 
       setTimeout(function () {
@@ -121,20 +124,15 @@ document.addEventListener('DOMContentLoaded', function () {
         img.src = slides[next].src;
         void img.offsetWidth; // force reflow
         // Fade in
-        img.style.transition = 'opacity 0.65s ease';
+        img.style.transition = 'opacity 0.5s ease';
         img.style.opacity = '1';
 
         current = next;
         animating = false;
         updateDots();
-        if (btnPrev) btnPrev.disabled = false;
-        if (btnNext) btnNext.disabled = false;
         if (!paused) schedule();
-      }, 350);
+      }, 250);
     }
-
-    if (btnPrev) btnPrev.addEventListener('click', function () { paused = false; goTo((current - 1 + n) % n); });
-    if (btnNext) btnNext.addEventListener('click', function () { paused = false; goTo((current + 1) % n); });
 
     window.addEventListener('keydown', function (e) {
       if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
@@ -210,11 +208,10 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   document.addEventListener('dragstart', function (e) {
     if (e.target.classList && e.target.classList.contains('protected-img')) e.preventDefault();
+
   });
 
-});
-
-  /* ===================== SUB-MENU TOGGLE ===================== */
+      /* ===================== SUB-MENU TOGGLE ===================== */
   var toggles = document.querySelectorAll('.sub-menu-toggle');
   var openSubMenu = null;
   toggles.forEach(function (tog) {
@@ -224,7 +221,6 @@ document.addEventListener('DOMContentLoaded', function () {
     tog.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-      // Close other open menu if different
       if (openSubMenu && openSubMenu !== menu) {
         openSubMenu.classList.remove('open');
       }
@@ -233,15 +229,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
   document.addEventListener('click', function (e) {
-    var clickedToggle = false;
-    var clickedMenu = false;
+    var inToggle = false;
+    var inMenu = false;
     toggles.forEach(function (t) {
-      if (t.contains(e.target)) clickedToggle = true;
+      if (t.contains(e.target)) inToggle = true;
     });
     document.querySelectorAll('.sub-menu').forEach(function (m) {
-      if (m.contains(e.target)) clickedMenu = true;
+      if (m.contains(e.target)) inMenu = true;
     });
-    if (!clickedToggle && !clickedMenu) {
+    if (!inToggle && !inMenu) {
       document.querySelectorAll('.sub-menu.open').forEach(function (m) {
         m.classList.remove('open');
       });
@@ -258,3 +254,4 @@ document.addEventListener('DOMContentLoaded', function () {
       if (href === '/' + page) a.classList.add('active');
     });
   });
+});
