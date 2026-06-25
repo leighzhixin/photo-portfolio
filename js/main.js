@@ -214,28 +214,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-  /* ===================== SUB-MENU TOGGLE (Project) ===================== */
-  var toggle = document.querySelector('.sub-menu-toggle');
-  var subMenu = document.getElementById('subMenuProject');
-  if (toggle && subMenu) {
-    toggle.addEventListener('click', function (e) {
+  /* ===================== SUB-MENU TOGGLE ===================== */
+  var toggles = document.querySelectorAll('.sub-menu-toggle');
+  var openSubMenu = null;
+  toggles.forEach(function (tog) {
+    var menuId = tog.getAttribute('data-submenu') || 'subMenuProject';
+    var menu = document.getElementById(menuId);
+    if (!menu) return;
+    tog.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-      subMenu.classList.toggle('open');
-    });
-    document.addEventListener('click', function (e) {
-      if (!subMenu.contains(e.target) && !toggle.contains(e.target)) {
-        subMenu.classList.remove('open');
+      // Close other open menu if different
+      if (openSubMenu && openSubMenu !== menu) {
+        openSubMenu.classList.remove('open');
       }
+      menu.classList.toggle('open');
+      openSubMenu = menu.classList.contains('open') ? menu : null;
     });
-  }
+  });
+  document.addEventListener('click', function (e) {
+    var clickedToggle = false;
+    var clickedMenu = false;
+    toggles.forEach(function (t) {
+      if (t.contains(e.target)) clickedToggle = true;
+    });
+    document.querySelectorAll('.sub-menu').forEach(function (m) {
+      if (m.contains(e.target)) clickedMenu = true;
+    });
+    if (!clickedToggle && !clickedMenu) {
+      document.querySelectorAll('.sub-menu.open').forEach(function (m) {
+        m.classList.remove('open');
+      });
+      openSubMenu = null;
+    }
+  });
 
   /* ===================== SUB-MENU ACTIVE STATE ===================== */
-  if (subMenu) {
-    var links = subMenu.querySelectorAll('a');
+  document.querySelectorAll('.sub-menu').forEach(function (menu) {
+    var links = menu.querySelectorAll('a');
     var page = window.location.pathname.split('/').pop();
     links.forEach(function (a) {
       var href = a.getAttribute('href');
       if (href === '/' + page) a.classList.add('active');
     });
-  }
+  });
