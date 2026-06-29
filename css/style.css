@@ -382,7 +382,8 @@ body {
     width: 280px;
     background: transparent;
   }
-  .sidebar.open { transform: translateX(0); }
+ .sidebar.open { transform: translateX(0); }
+  .sidebar.open { background: #fff; }
 
   .main-content.home-content {
     margin-left: 0;
