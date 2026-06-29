@@ -72,8 +72,8 @@ body {
   font-weight: 600;}
 .sidebar-nav { flex: 1; }
 .sidebar-nav ul { list-style: none; }
-.sidebar-nav li { margin-bottom: 1px; }
-.sidebar-nav li:last-child {
+.sidebar-nav > ul > li { margin-bottom: 1px; }
+.sidebar-nav > ul > li:last-child {
   margin-top: 20px;
 }
 .sidebar-nav a {
