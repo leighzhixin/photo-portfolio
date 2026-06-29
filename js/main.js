@@ -6,17 +6,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ===================== CONFIG ===================== */
     var slides = [
-    { src: '/images/home-1.jpg' },
-    { src: '/images/home-2.jpg' },
-    { src: '/images/home-3.jpg' },
-    { src: '/images/home-4.jpg' },
-    { src: '/images/home-5.jpg' },
-    { src: '/images/home-6.jpg' },
-    { src: '/images/home-7.jpg' },
-    { src: '/images/home-8.jpg' },
-    { src: '/images/home-9.jpg' },
-    { src: '/images/home-10.jpg' },
-    { src: '/images/home-11.jpg' }
+    { src: '/images/home/home-1.jpg' },
+    { src: '/images/home/home-2.jpg' },
+    { src: '/images/home/home-3.jpg' },
+    { src: '/images/home/home-4.jpg' },
+    { src: '/images/home/home-5.jpg' },
+    { src: '/images/home/home-6.jpg' },
+    { src: '/images/home/home-7.jpg' },
+    { src: '/images/home/home-8.jpg' },
+    { src: '/images/home/home-9.jpg' },
+    { src: '/images/home/home-10.jpg' },
+    { src: '/images/home/home-11.jpg' }
   ];
 
 
