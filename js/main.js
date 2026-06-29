@@ -227,6 +227,22 @@ document.addEventListener('DOMContentLoaded', function () {
       menu.classList.toggle('open');
       openSubMenu = menu.classList.contains('open') ? menu : null;
 
+      // ponytail: on mobile, position sub-menu below clicked item
+      if (window.innerWidth <= 768) {
+        if (menu.classList.contains("open")) {
+          var r = this.getBoundingClientRect();
+          menu.style.position = "fixed";
+          menu.style.left = "52px";
+          menu.style.top = (r.bottom + 4) + "px";
+          menu.style.width = "168px";
+        } else {
+          menu.style.position = "";
+          menu.style.left = "";
+          menu.style.top = "";
+          menu.style.width = "";
+        }
+      }
+
       // If the toggle has a real URL, navigate there
       var href = this.getAttribute('href');
       if (href && href !== '#') {
