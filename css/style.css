@@ -608,18 +608,24 @@ body {
 
 
 
+
 @media (max-width: 768px) {
   .sub-menu {
-    position: static;
-    background: transparent;
-    backdrop-filter: none;
-    border-radius: 0;
-    padding: 0;
-    z-index: auto;
+    position: fixed;
+    left: 32px;
+    top: 140px;
+    width: calc(220px - 64px);
+    bottom: auto;
+    background: rgba(0,0,0,0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 6px;
+    padding: 8px 0;
+    z-index: 101;
   }
-  .sidebar.open .sidebar-nav .sub-menu a {
+  .sub-menu a {
     color: #fff;
-   font-size: 11px;
+    font-size: 11px;
     line-height: 1.4;
     padding: 3px 16px 3px 32px;
     letter-spacing: 1px;
