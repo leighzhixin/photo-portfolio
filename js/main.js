@@ -46,29 +46,38 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ===================== CAROUSEL ===================== */
+  /* ===================== CAROUSEL (Cross Fade + Ken Burns) ===================== */
   var carouselEl = document.getElementById('homeCarousel');
   if (carouselEl && slides.length > 0) {
-    var img = carouselEl.querySelector('.carousel-stage img');
-    var dotsContainer = document.getElementById('carouselDots');
     var stage = document.getElementById('carouselStage');
+    var dotsContainer = document.getElementById('carouselDots');
 
     var n = slides.length;
     var current = 0;
-    var animating = false;
+    var currentIdx = 0;
     var paused = false;
     var autoTimer = null;
     var resumeTimer = null;
+    var imgs = [];
 
-    // Preload
+    // Create two overlapping img elements for crossfade
+    for (var i = 0; i < 2; i++) {
+      var img = document.createElement('img');
+      img.className = 'carousel-img' + (i === 0 ? ' active' : ' inactive');
+      img.alt = i === 0 ? 'Photo slideshow' : '';
+      stage.appendChild(img);
+      imgs.push(img);
+    }
+
+    // Preload all slides
     slides.forEach(function (s) { var p = new Image(); p.src = s.src; });
 
-    // Init
-    img.src = slides[0].src;
+    // Set initial image
+    imgs[0].src = slides[0].src;
 
-    // Click image to go to next photo
-    img.addEventListener('click', function () {
-      if (animating) return;
+    // Click/tap stage to advance
+    stage.addEventListener('click', function () {
+      if (n < 2) return;
       paused = false;
       goTo((current + 1) % n);
     });
@@ -81,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dot.dataset.index = d;
         dot.addEventListener('click', function () {
           var idx = parseInt(this.dataset.index, 10);
-          if (idx !== current && !animating) { paused = false; goTo(idx); }
+          if (idx !== current) { paused = false; goTo(idx); }
         });
         dotsContainer.appendChild(dot);
       }
@@ -100,40 +109,30 @@ document.addEventListener('DOMContentLoaded', function () {
       autoTimer = setTimeout(function () { autoTimer = null; if (!paused) goTo((current + 1) % n); }, 6000);
     }
 
-    function goTo(next, preloaded) {
-      if (next === current || animating || next < 0 || next >= n) return;
+    function goTo(next) {
+      if (next === current || next < 0 || next >= n || n < 2) return;
       clearTimeout(autoTimer); autoTimer = null;
 
-      // If not preloaded, preload first, then transition
-      if (!preloaded) {
-        var pre = new Image();
-        pre.onload = function () { goTo(next, true); };
-        pre.src = slides[next].src;
-        return;
-      }
+      var toIdx = (currentIdx + 1) % 2;
+      var from = imgs[currentIdx];
+      var to = imgs[toIdx];
 
-      animating = true;
-
-      // Fade out quickly
-      img.style.transition = 'opacity 0.25s ease';
-      img.style.opacity = '0';
-
-      setTimeout(function () {
-        // Swap src without transition to prevent flash
-        img.style.transition = 'none';
-        img.src = slides[next].src;
-        void img.offsetWidth; // force reflow
-        // Fade in
-        img.style.transition = 'opacity 0.5s ease';
-        img.style.opacity = '1';
-
+      // Preload into the hidden img, then crossfade
+      var pre = new Image();
+      pre.onload = function () {
+        to.src = slides[next].src;
+        void to.offsetWidth; // force reflow so transition fires
+        from.className = 'carousel-img inactive';
+        to.className = 'carousel-img active';
         current = next;
-        animating = false;
+        currentIdx = toIdx;
         updateDots();
         if (!paused) schedule();
-      }, 250);
+      };
+      pre.src = slides[next].src;
     }
 
+    // Keyboard navigation
     window.addEventListener('keydown', function (e) {
       if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
@@ -160,15 +159,15 @@ document.addEventListener('DOMContentLoaded', function () {
       }, { passive: true });
     })();
 
+    // Pause on hover
     carouselEl.addEventListener('mouseenter', function () { paused = true; clearTimeout(autoTimer); autoTimer = null; clearTimeout(resumeTimer); resumeTimer = null; });
     carouselEl.addEventListener('mouseleave', function () {
       clearTimeout(resumeTimer); resumeTimer = null;
-      resumeTimer = setTimeout(function () { resumeTimer = null; paused = false; if (!animating) schedule(); }, 2000);
+      resumeTimer = setTimeout(function () { resumeTimer = null; paused = false; schedule(); }, 2000);
     });
 
     schedule();
   }
-
   /* ===================== FADE-IN ON SCROLL ===================== */
   function checkFadeIn() {
     var elements = document.querySelectorAll('.fade-in:not(.visible)');
