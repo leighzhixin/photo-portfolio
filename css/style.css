@@ -110,7 +110,7 @@ body {
 .main-content.home-content {
   margin-left: var(--sidebar-w);
   flex: 1;
-  padding: 40px 20px 20px 140px;
+  padding: 40px 40px 20px 40px;
   max-width: none;
   min-height: 100vh;
 }
@@ -397,7 +397,10 @@ body {
   }
   .sidebar.open ~ .nav-toggle { display: none; }
 
- .main-content.home-content {
+  .main-content.home-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin-left: 0;
     padding: 20px;
     min-height: 80vh;
