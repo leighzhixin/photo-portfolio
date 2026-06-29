@@ -607,17 +607,17 @@ body {
 }
 
 
+
 @media (max-width: 768px) {
   .sub-menu {
-    bottom: auto;
-    background: rgba(0,0,0,0.15);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 6px;
-    padding: 8px 0;
-    z-index: 101;
+    position: static;
+    background: transparent;
+    backdrop-filter: none;
+    border-radius: 0;
+    padding: 0;
+    z-index: auto;
   }
-  .sub-menu a {
+  .sidebar.open .sidebar-nav .sub-menu a {
     color: #fff;
     font-size: 11px;
     padding: 5px 16px 5px 32px;
