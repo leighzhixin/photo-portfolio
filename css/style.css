@@ -371,7 +371,7 @@ body {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.2);
     z-index: 99;
   }
   .nav-overlay.active { display: block; }
@@ -384,39 +384,18 @@ body {
  }
 .sidebar.open { transform: translateX(0); }
   .sidebar.open {
-   transform: translateX(0);
-    background: rgba(0,0,0,0.2);
-   backdrop-filter: blur(8px);
-   -webkit-backdrop-filter: blur(8px);
-    mask-image: linear-gradient(to left, transparent 20px, black 50px);
-    -webkit-mask-image: linear-gradient(to left, transparent 20px, black 50px);
- }
- .sidebar.open .sidebar-nav a,
- .sidebar.open .sidebar-header .site-name,
- .sidebar.open .sidebar-header .site-name .sub,
- .sidebar.open .sidebar-header .tagline {
-   color: #fff;
- }
- .sidebar.open ~ .nav-toggle { display: none; }
-  .sub-menu {
-    position: fixed;
-    left: 32px;
-    width: calc(220px - 64px);
-    top: 140px;
-    bottom: auto;
+    transform: translateX(0);
     background: rgba(0,0,0,0.2);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border-radius: 6px;
-    padding: 8px 0;
-    z-index: 101;
   }
-  .sub-menu a {
+  .sidebar.open .sidebar-nav a,
+  .sidebar.open .sidebar-header .site-name,
+  .sidebar.open .sidebar-header .site-name .sub,
+  .sidebar.open .sidebar-header .tagline {
     color: #fff;
-    padding: 5px 16px;
-    letter-spacing: 1px;
-    font-weight: 500;
   }
+  .sidebar.open ~ .nav-toggle { display: none; }
 
  .main-content.home-content {
     margin-left: 0;
@@ -624,5 +603,26 @@ body {
   }
   .series-desc {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sub-menu {
+    left: 32px;
+    top: 140px;
+    width: calc(220px - 64px);
+    bottom: auto;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 6px;
+    padding: 8px 0;
+    z-index: 101;
+  }
+  .sub-menu a {
+    color: #fff;
+    padding: 5px 16px;
+    letter-spacing: 1px;
+    font-weight: 500;
   }
 }
