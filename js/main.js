@@ -46,38 +46,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ===================== CAROUSEL (Cross Fade + Ken Burns) ===================== */
+    /* ===================== CAROUSEL ===================== */
   var carouselEl = document.getElementById('homeCarousel');
   if (carouselEl && slides.length > 0) {
-    var stage = document.getElementById('carouselStage');
+    var img = carouselEl.querySelector('.carousel-stage img');
     var dotsContainer = document.getElementById('carouselDots');
+    var stage = document.getElementById('carouselStage');
 
     var n = slides.length;
     var current = 0;
-    var currentIdx = 0;
+    var animating = false;
     var paused = false;
     var autoTimer = null;
     var resumeTimer = null;
-    var imgs = [];
 
-    // Create two overlapping img elements for crossfade
-    for (var i = 0; i < 2; i++) {
-      var img = document.createElement('img');
-      img.className = 'carousel-img' + (i === 0 ? ' active' : ' inactive');
-      img.alt = i === 0 ? 'Photo slideshow' : '';
-      stage.appendChild(img);
-      imgs.push(img);
-    }
-
-    // Preload all slides
+    // Preload
     slides.forEach(function (s) { var p = new Image(); p.src = s.src; });
 
-    // Set initial image
-    imgs[0].src = slides[0].src;
+    // Init
+    img.src = slides[0].src;
 
-    // Click/tap stage to advance
-    stage.addEventListener('click', function () {
-      if (n < 2) return;
+    // Click image to advance
+    img.addEventListener('click', function () {
+      if (animating) return;
       paused = false;
       goTo((current + 1) % n);
     });
@@ -90,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dot.dataset.index = d;
         dot.addEventListener('click', function () {
           var idx = parseInt(this.dataset.index, 10);
-          if (idx !== current) { paused = false; goTo(idx); }
+          if (idx !== current && !animating) { paused = false; goTo(idx); }
         });
         dotsContainer.appendChild(dot);
       }
@@ -110,29 +101,31 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function goTo(next) {
-      if (next === current || next < 0 || next >= n || n < 2) return;
+      if (next === current || animating || next < 0 || next >= n) return;
       clearTimeout(autoTimer); autoTimer = null;
 
-      var toIdx = (currentIdx + 1) % 2;
-      var from = imgs[currentIdx];
-      var to = imgs[toIdx];
+      animating = true;
 
-      // Preload into the hidden img, then crossfade
-      var pre = new Image();
-      pre.onload = function () {
-        to.src = slides[next].src;
-        void to.offsetWidth; // force reflow so transition fires
-        from.className = 'carousel-img inactive';
-        to.className = 'carousel-img active';
+      // Fade out
+      img.style.transition = 'opacity 0.4s ease';
+      img.style.opacity = '0';
+
+      setTimeout(function () {
+        // Swap src
+        img.style.transition = 'none';
+        img.src = slides[next].src;
+        void img.offsetWidth;
+        // Fade in
+        img.style.transition = 'opacity 0.4s ease';
+        img.style.opacity = '1';
+
         current = next;
-        currentIdx = toIdx;
+        animating = false;
         updateDots();
         if (!paused) schedule();
-      };
-      pre.src = slides[next].src;
+      }, 400);
     }
 
-    // Keyboard navigation
     window.addEventListener('keydown', function (e) {
       if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
@@ -159,11 +152,10 @@ document.addEventListener('DOMContentLoaded', function () {
       }, { passive: true });
     })();
 
-    // Pause on hover
     carouselEl.addEventListener('mouseenter', function () { paused = true; clearTimeout(autoTimer); autoTimer = null; clearTimeout(resumeTimer); resumeTimer = null; });
     carouselEl.addEventListener('mouseleave', function () {
       clearTimeout(resumeTimer); resumeTimer = null;
-      resumeTimer = setTimeout(function () { resumeTimer = null; paused = false; schedule(); }, 2000);
+      resumeTimer = setTimeout(function () { resumeTimer = null; paused = false; if (!animating) schedule(); }, 2000);
     });
 
     schedule();
