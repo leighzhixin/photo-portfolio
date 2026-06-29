@@ -31,14 +31,17 @@
 }
 
 .series-photo {
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .series-photo img {
-  width: 100%;
   max-width: 720px;
+  width: auto;
+  height: auto;
   max-height: 85vh;
-  object-position: right;  object-fit: contain;
+  object-fit: contain;
+  object-position: right;
   display: block;
   border-radius: 3px;
 }
