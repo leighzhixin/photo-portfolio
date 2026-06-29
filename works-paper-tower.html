@@ -22,19 +22,20 @@
     }
     .series-header {
       position: fixed;
-      top: 32px;
-      right: 32px;
-      z-index: 10;
+      top: 56px;
+      left: calc(var(--sidebar-w) + 48px);
+      z-index: 20;
+      text-align: left;
     }
     .series-photo-list {
       display: flex;
       flex-direction: row;
       overflow-x: auto;
       overflow-y: hidden;
-      height: 67vh;
-      margin-top: 56px;
+      height: 62vh;
+      margin-top: 170px;
       gap: 40px;
-      padding: 0 40px 0 calc(var(--sidebar-w) + 40px);
+      padding: 0 40px 0 calc(var(--sidebar-w) + 48px);
       scrollbar-width: none;
     }
     .series-photo-list::-webkit-scrollbar { display: none; }
