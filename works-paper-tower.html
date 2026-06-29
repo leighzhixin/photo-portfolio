@@ -17,6 +17,8 @@
     .series-main {
       overflow: hidden;
       height: 100vh;
+      margin-left: 0 !important;
+      padding: 0 !important;
     }
     .series-header {
       position: fixed;
@@ -32,7 +34,7 @@
       height: 67vh;
       margin-top: 56px;
       gap: 40px;
-      padding: 0 40px;
+      padding: 0 40px 0 calc(var(--sidebar-w) + 40px);
       scrollbar-width: none;
     }
     .series-photo-list::-webkit-scrollbar { display: none; }
@@ -53,6 +55,9 @@
       right: 32px;
       z-index: 10;
       margin-top: 0;
+    }
+    .sidebar {
+      background: transparent !important;
     }
   }
 </style>
@@ -176,8 +181,11 @@
       el = el.parentElement;
     }
     if (inGallery) {
-      e.preventDefault();
-      gallery.scrollLeft += e.deltaY || e.deltaX;
+      var dy = Math.abs(e.deltaY), dx = Math.abs(e.deltaX);
+      if (dy > dx && dy > 2) {
+        e.preventDefault();
+        gallery.scrollLeft += e.deltaY;
+      }
     }
   }, { passive: false, capture: true });
 })();
