@@ -38,7 +38,7 @@
   width: 100%;
   max-width: 720px;
   max-height: 85vh;
-  object-fit: contain;
+  object-position: right;  object-fit: contain;
   display: block;
   border-radius: 3px;
 }
