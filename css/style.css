@@ -454,33 +454,7 @@ body {
   color: var(--text-secondary);
   margin-top: 6px;
   font-weight: 400;
-}
-
-/* ===================== YEAR NAV ===================== */
-.year-nav {
-  display: flex;
-  gap: 0;
-  margin-bottom: 40px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-color);
-}
-.year-link {
-  font-family: var(--font-sc);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  text-decoration: none;
-  padding: 4px 16px 4px 0;
-  letter-spacing: 1px;
-  transition: color var(--transition);
-  cursor: pointer;
-}
-.year-link:hover {
-  color: var(--text-primary);
-}
-.year-link.active {
-  color: var(--text-primary);
-  font-weight: 600;
+  text-align: right;
 }
 
 /* ===================== YEAR SECTION ===================== */
@@ -493,8 +467,7 @@ body {
   align-items: baseline;
   gap: 12px;
   margin-bottom: 20px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-color);
+  justify-content: flex-end;
 }
 .year-section-title {
   font-family: var(--font-sc);
@@ -511,7 +484,7 @@ body {
 /* ===================== PHOTO GRID ===================== */
 .photo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   gap: 16px;
 }
 .photo-item {
@@ -526,14 +499,18 @@ body {
 }
 .photo-item img {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
   display: block;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.photo-item:hover img {
-  transform: scale(1.03);
+
+/* ===================== PREVIEW TRIGGER ===================== */
+.preview-trigger {
+  cursor: zoom-in;
 }
+
 .photo-label {
   display: block;
   padding: 8px 0 4px;
@@ -541,87 +518,54 @@ body {
   color: var(--text-secondary);
   letter-spacing: 0.5px;
   font-family: var(--font-body);
+  text-align: right;
 }
 
-/* ===================== LIGHTBOX ===================== */
-.lightbox {
-  display: none;
+/* ===================== IMAGE PREVIEW (lightbox) ===================== */
+.image-preview {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  box-sizing: border-box;
   position: fixed;
   inset: 0;
-  z-index: 1000;
-  background: rgba(0,0,0,0.92);
-  align-items: center;
-  justify-content: center;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-}
-.lightbox.open {
-  display: flex;
-}
-.lightbox-content {
-  position: relative;
-  max-width: 90vw;
-  max-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.lightbox-content img {
+  width: 100%;
   max-width: 100%;
-  max-height: 80vh;
-  object-fit: contain;
-  border-radius: 2px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  height: 100%;
+  max-height: 100%;
+  display: grid;
+  place-items: center;
 }
-.lightbox-label {
+.image-preview:not([open]) {
+  display: none;
+}
+.image-preview::backdrop {
+  background: rgba(20, 20, 20, 0.68);
+}
+.preview-image {
   display: block;
-  margin-top: 12px;
-  font-size: 13px;
-  color: rgba(255,255,255,0.6);
-  letter-spacing: 0.5px;
-  font-family: var(--font-body);
+  max-width: min(72vw, 1400px);
+  max-height: 72vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: rgba(0, 0, 0, 0.28) 0px 18px 40px;
+  margin: 0 auto;
 }
-.lightbox-close {
+.preview-close {
   position: absolute;
-  top: 24px;
-  right: 28px;
-  background: none;
-  border: none;
-  color: rgba(255,255,255,0.7);
-  font-size: 36px;
-  cursor: pointer;
-  z-index: 1010;
-  padding: 8px;
-  line-height: 1;
-  transition: color var(--transition);
-}
-.lightbox-close:hover {
+  top: 1.25rem;
+  right: 1.4rem;
+  z-index: 2;
+  border: 0;
+  background: transparent;
   color: #fff;
-}
-.lightbox-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: rgba(255,255,255,0.5);
-  font-size: 48px;
+  font-family: var(--font-ui, 'Inter', -apple-system, BlinkMacSystemFont, sans-serif);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
-  z-index: 1010;
-  padding: 16px;
-  line-height: 1;
-  transition: all var(--transition);
-  -webkit-user-select: none;
-  user-select: none;
-}
-.lightbox-nav:hover {
-  color: #fff;
-}
-.lightbox-prev {
-  left: 16px;
-}
-.lightbox-next {
-  right: 16px;
 }
 
 /* ===================== RESPONSIVE ===================== */
@@ -630,23 +574,19 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 10px;
   }
-  .year-nav {
-    gap: 0;
-    flex-wrap: wrap;
+
+  .image-preview {
+    display: grid;
+    place-items: center;
   }
-  .lightbox-content {
-    max-width: 95vw;
-    max-height: 85vh;
+  .preview-image {
+    max-width: min(92vw, 1400px);
+    max-height: min(80vh, 600px);
   }
-  .lightbox-nav {
-    font-size: 32px;
-    padding: 12px;
-  }
-  .lightbox-prev {
-    left: 4px;
-  }
-  .lightbox-next {
-    right: 4px;
+  .preview-close {
+    top: 0.75rem;
+    right: 0.9rem;
+    font-size: 0.6875rem;
   }
   .series-desc {
     font-size: 12px;

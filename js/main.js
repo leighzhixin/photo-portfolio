@@ -226,6 +226,12 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       menu.classList.toggle('open');
       openSubMenu = menu.classList.contains('open') ? menu : null;
+
+      // If the toggle has a real URL, navigate there
+      var href = this.getAttribute('href');
+      if (href && href !== '#') {
+        window.location.href = href;
+      }
     });
   });
   document.addEventListener('click', function (e) {

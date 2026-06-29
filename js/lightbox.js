@@ -1,36 +1,32 @@
 /* =============================================
-   Found Not Lost — Lightbox viewer
+   Found Not Lost — Image preview (lightbox)
+   Matches sevenliang.com — native <dialog> API
    ============================================= */
 
 (function () {
   'use strict';
 
-  var lightbox = document.getElementById('lightbox');
-  if (!lightbox) return;
+  var dialog = document.getElementById('lightbox');
+  if (!dialog || dialog.tagName !== 'DIALOG') return;
 
   var imgEl = document.getElementById('lightboxImg');
-  var labelEl = document.getElementById('lightboxLabel');
   var closeBtn = document.getElementById('lightboxClose');
-  var prevBtn = document.getElementById('lightboxPrev');
-  var nextBtn = document.getElementById('lightboxNext');
 
   var items = [];
   var currentIndex = -1;
 
   // Collect all photo items from the grid
   function initItems() {
-    var photoEls = document.querySelectorAll('.photo-item');
+    var photoEls = document.querySelectorAll('.preview-trigger');
     items = [];
     photoEls.forEach(function (el) {
       var img = el.querySelector('img');
-      var label = el.querySelector('.photo-label');
       if (img) {
-        // Build high-res src for lightbox
         var src = img.getAttribute('src') || '';
         var hqSrc = src.replace(/w=600&q=80/, 'w=1600&q=85');
         items.push({
           src: hqSrc,
-          label: label ? label.textContent : ''
+          label: img.alt || ''
         });
       }
     });
@@ -43,14 +39,13 @@
     var item = items[currentIndex];
     imgEl.src = item.src;
     imgEl.alt = item.label;
-    labelEl.textContent = item.label;
-    lightbox.classList.add('open');
+    dialog.showModal();
     document.body.style.overflow = 'hidden';
   }
 
   // Close lightbox
   function close() {
-    lightbox.classList.remove('open');
+    dialog.close();
     document.body.style.overflow = '';
   }
 
@@ -71,7 +66,7 @@
   initItems();
 
   // Click handler on photo items
-  document.querySelectorAll('.photo-item').forEach(function (el, idx) {
+  document.querySelectorAll('.preview-trigger').forEach(function (el, idx) {
     el.addEventListener('click', function (e) {
       e.preventDefault();
       open(idx);
@@ -83,42 +78,32 @@
     closeBtn.addEventListener('click', close);
   }
 
-  // Nav buttons
-  if (prevBtn) {
-    prevBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      prev();
-    });
-  }
-  if (nextBtn) {
-    nextBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      next();
-    });
-  }
-
-  // Keyboard
+  // Keyboard navigation — native Escape closes <dialog> automatically
   document.addEventListener('keydown', function (e) {
-    if (!lightbox.classList.contains('open')) return;
-    if (e.key === 'Escape') { close(); return; }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); return; }
-    if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
-  });
-
-  // Click outside image to close
-  lightbox.addEventListener('click', function (e) {
-    if (e.target === lightbox) close();
+    if (!dialog.open) return;
+    if (e.key === 'Escape') {
+      // Let the native Escape handler close the dialog
+      return;
+    }
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      prev();
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      next();
+    }
   });
 
   // Touch swipe for mobile
   (function () {
     var tx = 0;
-    lightbox.addEventListener('touchstart', function (e) {
+    dialog.addEventListener('touchstart', function (e) {
       if (!e.touches || !e.touches[0]) return;
       tx = e.touches[0].clientX;
     }, { passive: true });
-    lightbox.addEventListener('touchend', function (e) {
+    dialog.addEventListener('touchend', function (e) {
       if (!e.changedTouches || !e.changedTouches[0]) return;
+      if (!dialog.open) return;
       var dx = e.changedTouches[0].clientX - tx;
       if (Math.abs(dx) < 48) return;
       if (dx < 0) next(); else prev();
@@ -141,7 +126,6 @@
       }
     });
 
-    // Fallback to last section if scrolled past
     if (!activeId && yearSections.length > 0) {
       var last = yearSections[yearSections.length - 1];
       if (scrollY >= last.offsetTop - 100) {
@@ -176,7 +160,7 @@
   // Re-init items if photos change dynamically
   var observer = new MutationObserver(function () {
     initItems();
-    document.querySelectorAll('.photo-item').forEach(function (el, idx) {
+    document.querySelectorAll('.preview-trigger').forEach(function (el, idx) {
       el.addEventListener('click', function (e) {
         e.preventDefault();
         open(idx);

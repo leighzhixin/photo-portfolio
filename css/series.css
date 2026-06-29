@@ -16,9 +16,10 @@
 
 .series-title {
   font-family: var(--font-sc);
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 1px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   color: var(--text-primary);
 }
 
