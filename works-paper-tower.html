@@ -10,6 +10,52 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/series.css">
+<style>
+  /* Desktop: horizontal scroll gallery (paper tower only) */
+  @media (min-width: 769px) {
+    body { overflow: hidden; }
+    .series-main {
+      overflow: hidden;
+      height: 100vh;
+    }
+    .series-header {
+      position: fixed;
+      top: 32px;
+      right: 32px;
+      z-index: 10;
+    }
+    .series-photo-list {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      overflow-y: hidden;
+      height: 67vh;
+      margin-top: 56px;
+      gap: 40px;
+      padding: 0 40px;
+      scrollbar-width: none;
+    }
+    .series-photo-list::-webkit-scrollbar { display: none; }
+    .series-photo {
+      flex: 0 0 auto;
+      height: 100%;
+    }
+    .series-photo:first-child { margin-left: 4px; }
+    .series-photo img {
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+    .series-nav {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 10;
+      margin-top: 0;
+    }
+  }
+</style>
 </head>
 <body>
 
@@ -115,5 +161,26 @@
 </div>
 
 <script src="/js/main.js"></script>
+
+<script>
+(function() {
+  'use strict';
+  if (!window.matchMedia('(min-width: 769px)').matches) return;
+  var gallery = document.querySelector('.series-photo-list');
+  if (!gallery) return;
+  window.addEventListener('wheel', function(e) {
+    var el = e.target;
+    var inGallery = false;
+    while (el) {
+      if (el === gallery) { inGallery = true; break; }
+      el = el.parentElement;
+    }
+    if (inGallery) {
+      e.preventDefault();
+      gallery.scrollLeft += e.deltaY || e.deltaX;
+    }
+  }, { passive: false, capture: true });
+})();
+</script>
 </body>
 </html>
