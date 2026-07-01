@@ -1,4 +1,4 @@
-# Li Zhixin — Photography Portfolio
+# LI ZHIXIN — Photography Portfolio
 
 Personal photography portfolio website. Minimal, clean design inspired by [cargocollective.com/zheis](https://cargocollective.com/zheis) and [sevenliang.com](https://www.sevenliang.com/).
 
