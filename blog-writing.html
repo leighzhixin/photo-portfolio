@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blog / Diary — LI ZHIXIN">
+  <title>Writing — LI ZHIXIN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+ <style>
+   .blog-main {
+     margin-left: 360px;
+     margin-right: 40px;
+     width: 480px;
+     max-width: 90vw;
+     padding: 40px 0 100px;
+     min-height: 100vh;
+     text-align: left;
+   }
+
+   .blog-entry {
+     padding: 24px 0;
+   }
+
+   .blog-entry:first-child {
+     padding-top: 0;
+   }
+
+   .blog-tag {
+     font-family: var(--font-body);
+     font-size: 10px;
+     letter-spacing: 0.5px;
+     color: var(--text-secondary);
+     margin-bottom: 2px;
+     font-weight: 500;
+     text-align: left;
+   }
+
+   .blog-date {
+     font-family: var(--font-body);
+     font-size: 11px;
+     letter-spacing: 1px;
+     color: var(--text-muted);
+     margin-bottom: 8px;
+     font-weight: 400;
+     text-align: left;
+   }
+
+   .blog-text {
+     font-family: var(--font-sc);
+     font-size: 15px;
+     line-height: 1.8;
+     color: var(--text-primary);
+     white-space: pre-wrap;
+     text-align: justify;
+   }
+
+   .blog-text p {
+     margin-bottom: 0.6em;
+   }
+
+   .blog-text p:last-child {
+     margin-bottom: 0;
+   }
+
+   .blog-pagination {
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     gap: 10px;
+     margin-top: 40px;
+     padding-left: 4px;
+   }
+
+   .blog-pagination .page-btn {
+     background: none;
+     border: none;
+     cursor: pointer;
+     padding: 4px;
+     color: var(--text-primary);
+     opacity: 0.5;
+     transition: opacity var(--transition);
+   }
+
+   .blog-pagination .page-btn:hover {
+     opacity: 1;
+   }
+
+   .blog-pagination .page-btn svg {
+     width: 18px;
+     height: 18px;
+     display: block;
+   }
+
+   .blog-pagination .page-info {
+     font-family: var(--font-body);
+     font-size: 11px;
+     color: var(--text-secondary);
+     letter-spacing: 0.5px;
+   }
+
+   /* Empty state */
+   .blog-empty {
+     font-family: var(--font-sc);
+     font-size: 14px;
+     color: var(--text-secondary);
+     text-align: center;
+     padding: 80px 0;
+     line-height: 2;
+   }
+
+   @media (max-width: 768px) {
+     .blog-main {
+       margin-left: 0;
+       width: auto;
+       max-width: none;
+       padding: 40px 24px 80px;
+     }
+     .blog-entry {
+       padding: 20px 0;
+     }
+     .blog-text {
+       font-size: 14px;
+     }
+   }
+ </style>
+</head>
+<body>
+
+<div class="site-wrapper">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar" id="sidebar" aria-label="Site navigation">
+    <div class="sidebar-header">
+      <a href="/" class="site-name">LI ZHIXIN</a>
+    </div>
+    <nav class="sidebar-nav" aria-label="Main">
+      <ul>
+        <li>
+          <a href="#" class="sub-menu-toggle">project</a>
+          <div class="sub-menu" id="subMenuProject">
+            <ul>
+              <li><a href="/works-paper-tower.html">paper tower</a></li>
+              <li><a href="/works-roadside-picnic.html">roadside picnic</a></li>
+              <li><a href="/works-1-roll.html">1 roll</a></li>
+              <li><a href="/works-people.html">people</a></li>
+              <li><a href="/works-rhapsody.html">rhapsody</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a href="/works-found-not-lost.html" class="sub-menu-toggle" data-submenu="subMenuFoundNotLost">found not lost</a>
+          <div class="sub-menu" id="subMenuFoundNotLost">
+            <ul>
+              <li><a href="/works-found-not-lost.html#y2026">2026</a></li>
+              <li><a href="/works-found-not-lost.html#y2025">2025</a></li>
+              <li><a href="/works-found-not-lost.html#y2024">2024</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="#">video</a></li>
+        <li>
+          <a href="#" class="sub-menu-toggle" data-submenu="subMenuText">text</a>
+          <div class="sub-menu" id="subMenuText">
+            <ul>
+              <li><a href="/blog-decade-1.html">Decade 1</a></li>
+              <li><a href="/blog-decade-2.html">Decade 2</a></li>
+              <li><a href="/blog-decade-3.html">Decade 3</a></li>
+              <li><a href="/blog-writing.html" class="active">Writing</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="/about.html">about</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Nav toggle (mobile) -->
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+  </button>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- ====== BLOG CONTENT ====== -->
+  <main class="blog-main" id="blogMain">
+
+    <!-- Entries rendered by JS -->
+
+  </main>
+<script>
+  /* ===================== BLOG DATA ===================== */
+  var entries = [
+    { date: '2026-06-24 20:12', tag: '#最近阅读了什么文本', text: 'Anthropic 公布了 Claude Code 的研报，分析了 20 万用户、40 万次真实对话，结论极其反直觉：智能体能不能完成任务，跟使用者的代码水平无关，而完全取决于专业知识。\n\n工具的平权，最终嘉奖的是那些拥有审美和内容判断的人，而不是掌握了多少种软件操作技法。' },
+    { date: '2026-05-20 15:15', tag: '#最近阅读了什么文本', text: '于贝尔·达弥施的《落差：经受摄影的考验》主要讲的是摄影，但作为摄影近亲的电影，情况也差不多。从拍下来的和想要拍的，到呈现出的和最后观众获取的，每个层面都有"信息差"。' },
+    { date: '2026-03-26 01:01', tag: '#最近阅读了什么文本', text: '整个爱尔兰都在下雪。\n\n雪落在晦暗的中部平原的每一寸土地上，落在没有树木的山丘上，落在荒芜的荆棘丛中。他听着雪花在天地间悠悠飘落，悠悠地，如同他们最终的归宿那样，飘落在每一个生者和死者身上。\n\n那一年，26 岁的乔伊斯，在《都柏林人》中写下了西方文学史上最有名的一场雪。' },
+    { date: '2026-03-26 00:58', tag: '#最近阅读了什么文本', text: '起码从过去的电影理论史来看，像巴赞、德勒兹这些理论家都是把电影看作认识世界的一个有力武器，并不仅仅是幻觉机制那么简单，把电影比喻成梦或者幻觉，这是一个很老套的比喻，这个梦呢也可以有好几种理解的方式。\n\n比如好莱坞说的白日梦逃避主义，这是我们最熟悉的一种说法。\n\n还比如麦茨他从精神分析的角度有一个更加理论化的说法。\n\n荧幕就像拉康说的那面镜子，观众坐在黑暗里，身体没法动，处于一种退行的状态，像婴儿一样，这是一种身体瘫痪加感官活跃的状态。\n\n这个时候看电影的就像做了一个清醒的梦，获得一种自愿的幻觉。\n\n电影巨辩 · 29. 毕赣' },
+    { date: '2026-03-23 21:10', tag: '#最近阅读了什么文本', text: '我觉得春光乍泄对赵婷的影响不是在电影形式电影风格上，而是在电影的主题。\n\n春光乍泄这个电影就是讲的归属感，在九七香港回归前夕，两个身在异国的香港人，虽然有乡愁，但找不到归属感。\n\n梁朝伟最后是停在了台北，迟迟不愿意回去。\n\n我相信一定是王家卫在这部电影里面拍出的寂寞孤独，还有对归属感的渴望，深深打动了赵婷。\n\n……\n\n我们具体说一下马里克和赵婷的关系，首先就是技术层面了。\n\n马里克和卢贝茨基，他们是发展出来了一套新自然主义的方法。\n\n他们的方法体系就包括要尽可能的利用太阳光，尤其是背光和侧光。\n\n他们不太喜欢正面光，因为正面光就会让人物变得很扁平嘛。\n\n背光就有一种跟背景分离的轮廓感。\n\n所以他们喜欢背光。\n\n电影巨辩 · 32. 赵婷' },
+    { date: '2026-03-23 21:06', tag: '#最近阅读了什么文本', text: '…… 对的，这里圆还有一个情节设置复刻，就是警察反复的骂阿兰贱。\n\n结果阿兰的回应是你打我吧，我就是贱。\n\n在福柯的理论当中，当受害者享受权力的施暴时，权力的威严就失效了。施暴者反而感到了恐惧和无力。\n\n王小波在黄金时代里也用过这种叙事模式。\n\n电影巨辩 · 电影与身份政治（7）' },
+    { date: '2026-03-23 21:04', tag: '#最近阅读了什么文本', text: '…… 生孩子这个情节呢是把女性身体被物化，被货币化这个过程表现得淋漓尽致。\n\n这里最有深意的一点是，老板和老公，也就是梁家辉和佟大为这两个角色，他们是两个不同的阶级嘛，但是他们都用刘苹果的身体来做交易。\n\n本质上就是说父权这个时候达成了一种跨越阶级的同谋，女性对自己的身体没有发言权。她只是两个男人讨价还价的标的物。\n\n所以这里实际上李煜表达了性别属性比阶级属性更加的本质，也可以说父权制的问题是超越阶级的。\n\n电影巨辩 · 电影与身份政治（7）' },
+    { date: '2026-03-23 21:02', tag: '#最近阅读了什么文本', text: '他女儿是一个摄影师，失踪了，他留下的证据就是他拍摄过七个足球场，那父亲就去一个一个探访，这些足球场。\n\n在这个过程当中，每一次他停留下来，都好像是在确认女儿的存在。\n\n这个过程呢也好像就是记忆是通过这种媒介的形式。\n\n那几张照片来传承的，因为它只剩照片了嘛，照片就是连接父亲和女儿记忆的唯一的纽带。\n\n而他希望通过回到现场来把这个记忆变成一种更加真实的东西。\n\n……\n\n比如说他可以用来寄托对人和物消失之后的这种哀悼的情感电影，它变成这样的一种更加具有情感属性的媒介。\n\n如果把影像当做一种记忆的创造，一种对象化的文本，它就不再是简单的记录媒介了。\n\n电影巨辩 · 30. 2025 世界电影总结 · 落叶球' },
+    { date: '2026-03-23 20:59', tag: '#最近阅读了什么文本', text: '鲁德要探讨的有一个问题挺有冲击力，就是在现代社会，人和人之间那种没有占有欲，没有承诺的互动和控制欲很强的传统婚姻相比，是不是更接近爱的本质？\n\n它是探讨性的表达，不是给出一个标准答案。\n\n当然这种设想是比较乌托邦的，肯定是乌托邦要比现实更加前卫一点，那不然的话还有什么拍的必要吗？\n\n电影巨辩 · 30. 2025 世界电影总结 · 性梦爱三部曲' },
+    { date: '2026-03-23 20:52', tag: '#最近阅读了什么文本', text: '为什么现在会有人开始怀念历史上明明不那么美好的年代，就是因为记忆断掉了，记忆没有传承。\n\n我前些天啊还看到美国媒体的一篇文章，他就说当下的美国人对于二战之前的记忆，对于纳粹的认知已经断掉了，很多人是没有概念的，美国也在走老路。\n\n那人类历史为什么会不断的循环呢？\n\n因为记忆的传承是很困难的。\n\n就算作为文字记录传下来了，那种切身的痛感会消失，所以还是会忘记。\n\n……\n\n我这里突然想到了孔飞力那本名著叫魂，我发现两者的底层逻辑是差不多的。\n\n妖魔鬼怪根本不是最大的怪物，最大的怪物是弥漫在空气中的无知和恐惧。\n\n这种无知和恐惧是被信息不透明的威权体制制造出来的。\n\n所以某种角度来看，密探就是巴西版的叫魂。\n\n电影巨辩 · 30. 2025 世界电影总结 · 密探' },
+    { date: '2026-03-23 20:50', tag: '#最近阅读了什么文本', text: '六十年代的反文化运动是把身体的解放作为战场，但艾滋病的出现终结了这一切。\n\n我记得好像是韩炳哲说的，他说，艾滋病直接导致了免疫学式的社会排斥，他人、陌生人成为了一种病毒，不再是诱惑了，这是在心理上终结了六十年代的开放精神，不可能再四海一家皆兄弟了，再加上里根、撒切尔夫人代表的新自由主义。\n\n在八十年代保守派掌控的主流话语是以审判的姿态来处理六十年代的那笔精神遗产。\n\n电影巨辩' },
+    { date: '2026-01-11 16:40', tag: '#最近阅读了什么文本', text: '评论的角度启迪创作的维度\n\n播客 · 与彭若愚夜聊，如何写好一篇纪录片影评' },
+    { date: '2025-06-15 23:51', tag: '#最近阅读了什么文本', text: '目前对于写电影评论的兴趣：对于一切大理论和哲学概念，绝不将其作为提笔的前提；从一个单独的形象出发寻找联系，或寻找每一部电影结构本身的形象（此时我已经背叛了第一条）；想象画外的东西，想象我想拍摄的电影；从一些我无法理解的他人意见中寻找我可能忽视的问题（看看别人是怎么看的）；试图回溯自己曾经对一部电影的感受，以及偏颇之词（这不代表现在写的就不偏颇，只是从一个视角变为两个或更多）；多提供一些信息而非看法，可能是另一部影片，可能是一个演员的名字，可能是另一位评论家的话。\n\n—— TWY（豆瓣）' },
+    { date: '2025-06-08 17:38', tag: '#最近阅读了什么文本', text: '审查的本质是一种隐形的思想教化\n\n电影巨变 · 为了华语电影 Ep.7' },
+    { date: '2025-02-18 17:52', tag: '#最近阅读了什么文本', text: '权利为了让话语显得正当，会穿上"道理"或者"数学"的外衣。\n\n数学作为一种说理的方式，在达成共识的时候，并不是说最后说服人的动因是道理。在人与人达成共识的时候，几乎没有什么东西是可以用道理说服的，几乎背后都是用权力说服的，而权力的可怕之处在于，它能发明类似数学原理的规则，来推进和巩固自己的正当性，数学有多强大，权力发明知识的能力就有多强大。\n\n翻电 · 数学' },
+    { date: '2025-02-06 22:22', tag: '#最近阅读了什么文本 / 齐泽克', text: '色情的悲哀之处，它想要尽可能的真实，但又要保持最低限度的幻想成分。\n\n变态者电影指南' },
+    { date: '2024-05-29 14:19', tag: '#最近阅读了什么文本', text: '道德相对主义认为不存在普遍或绝对的一套道德原则。这是一种提倡"各人自扫门前雪"的道德观，那些遵循这种道德观的人会说，"我凭什么去评判别人？"\n\n在宗教缺失的情况下，真理变得主观。换句话说，它变成了我的真理与你的真理，这实际上意味着没有真理，这意味着没有对与错，没有善与恶。' },
+    { date: '2022-03-12 12:47', tag: '#最近阅读了什么文本', text: '在这里不想去讨论为什么捍卫某一事物的合理性，而是去讨论为什么无法不去捍卫某一事物的合理性，其捍卫的合法性和合理性本能来源于什么。\n\n当前时代有什么在限制我们的思想而我们不自知。\n\n现代性与现代主义' },
+    { date: '2022-02-08 20:38', tag: '#最近阅读了什么文本', text: '现代性是伴随西欧和北美的工业化而来的：不断缩减的农业工作迫使劳动力在制造业寻找受雇的机会，城市因而得到扩张。巴黎和伦敦等城市的人口暴增促进了旨在服务于新兴市民需要的各种生意的膨胀：餐馆、酒吧、剧院、音乐厅、寄宿公寓和旅馆遍地开花。这些生意创造了更多的就业机会，同时也引入了新的社会习惯和期望。\n\n现代性根植于城市文化，城市的休闲活动和日常所需都通过商业渠道获得，现代性因而指的是后工业时代资本主义社会的状态。现代主义简单来说就是这种社会组织形式的文化表达。\n\n现代性与现代主义' },
+    { date: '2022-02-08 13:14', tag: '#最近阅读了什么文本', text: '人的认识能力是有限的，所以永远不要在自己看重的立场上附着不加边际的价值。对于世俗问题，我们必须戒断对独断化思维的成瘾性依赖，虽然这种思维极大地迎合着人类的自负与傲慢，但它已经被历史证明是一种灾难性的偏见和愚蠢。我们必须承认任何对立立场都可能存在合理的成分，毕竟，我们不是哲学王，无法走出洞穴直视太阳从而获得真理性的知识（episteme），我们只能生活在现象世界拥有并不充分的意见（doxa）。' },
+    { date: '2026-01-06 16:46', tag: '#读书 / 夜晚的潜水艇', text: '…。园子里有风，日光树影在她脸颊上游移，像一种表情。\n\np139 李茵的湖' },
+    { date: '2025-12-25 12:39', tag: '#读书 / 大问题', text: '康德（在《纯粹理性批判》中）无条件地支持决定论。他认为，决定论基于的（普遍因果性）原理是一切人类经验的必然准则。人的行动也包含其中：\n\n人的一切出自经验性的品格和其他原因的行动都是按照自然秩序被规定的；如果我们有可能把人的一切现象一直追索到底，那就绝不会有任何单独的人的行动是我们不能确定地预言的。\n\np305 第七章·自由' },
+    { date: '2025-12-10 14:18', tag: '#读书 / 波拉尼奥', text: '他闻起来有些潮湿，像有毒或无毒的蘑菇，怪怪的。\n\n布巴 p218' },
+    { date: '2025-11-25 14:19', tag: '#读书 / 波拉尼奥', text: '正当我犹豫彷徨或者说正在我惊讶地分析此事的时候，铁栅栏打开了，人群像成群的乌鸦或者老鹰一样飞出了体育场。\n\np165' },
+    { date: '2025-11-15 16:32', tag: '#读书 / 大问题', text: '我们的行动越是受到不属于我们的其他力量的支配，我们就越不觉得需要为之负责。\n\n决定论者的论证形式是三段论，其前提似乎没有什么疑问：\n\n每一个事件都有其解释性的原因。\n人的每一次选择或行动是一个事件。\n因此，每个人的选择或行动都有其解释性的原因。\n\n然后又是一个三段论：\n\n每个人的选择或行动都有其解释性的原因。\n有解释性的原因就不自由。\n因此，一个人的选择或行动不可能是自由的。\n\n……\n\n律师约翰·白哲认为，他的委托人罪恶的一生是由星星注定的。他认为他的这种想法能够使法官有机会理解"我们都是受命运摆布的"。\n\n但声称"倾向于认为占星术中存在着某种真理"的巡回法官鲁本·科斯塔，却在星期一的预审听证会上驳回了律师所做的辩护。\n\np295' },
+    { date: '2025-11-04 15:46', tag: '#读书 / 波拉尼奥', text: '我在黑暗中睁开过眼睛\n\n拉罗神父的预想 p137' },
+    { date: '2025-10-27 16:03', tag: '#读书 / 波拉尼奥', text: '你有多长时间没看见她了？\n\n很久了，我说，但有时早晨醒来又觉得好像刚刚见过她。' },
+    { date: '2025-02-19 19:06', tag: '#读书 / 觀看的方式', text: '我們注視的從來不只是事物本身；我們注視的永遠是事物與我們之間的關係。我們的視線不斷搜尋、不斷移動，不斷在它的周圍抓住什麼，不斷建構出當下呈現在我們眼前的景象。' },
+    { date: '2024-02-19 16:48', tag: '#读书 / 保罗索尔', text: '我觉得这就是一种横向思维。为什么一定要重新安置那些住在洞里的人呢？符合逻辑的办法就是改善他们窑洞的条件，这样做非常具有中国特色。\n\n它和蒸汽火车头的例子有点像：人们年复一年地生产这种崭新的老古董，但它的设计并不坏，只是看上去有点过时而已。对于一个产煤的国家来说，这非常经济有效。\n\n如果这是一趟穿越时光的旅行，我会觉得十分安心：我的旅馆房间里有痰盂和夜壶；扶手椅用罩子套着，上面还放了块汗巾；上过油漆的桌子盖着绣花桌布，桌上摆着水壶、台历和一瓶塑料花；抽屉里有一小瓶墨水和一个笔架，笔架上有支羽毛钢笔。没有一样东西可以称作是现代的，但大部分东西都经久耐用。\n\n对大部分西方人来说，这是有些滑稽甚至可笑的，但它并不是一个笑话——在一个人们还在用两千年前设计的渔网去河里捕鱼的社会，它绝不是一个笑话。中国所经受的磨难，比地球上其他任何一个国家都要多。然而，她挺了过来，甚至繁荣了起来。\n\nP75' },
+    { date: '2024-02-19 16:37', tag: '#读书 / 保罗索尔', text: '大同机车厂会客厅里还挂着毛主席的画像。有全国性的统计数据表明，1976 年毛泽东逝世时全国悬挂的毛主席像达 7000 万幅之多，但如今中国已经很少见到毛主席像了。\n\n工厂条幅上的标语没什么政治色彩，很多都是关于生产安全的，还有一些是号召大家团结工作的，其中有一条上面写着"全力以赴，实现三大目标"。我问谭先生那些目标是什么，他告诉我指的是"按时生产，不浪费劳动""保持良好的工作态度"以及"提高生产力"。\n\nP72' },
+    { date: '2024-02-19 16:36', tag: '#读书 / 保罗索尔', text: '谭先生三十岁左右，但看起来比较显老。中国人在二十五岁之前看上去都挺年轻，但从那之后就开始变得憔悴。到了六十来岁，他们又会恢复淡定从容的样子，然后越来越高贵优雅，虽然年龄在增长，却看不出衰老的痕迹。谭先生经历过"文化大革命"，还曾经是大同的一名红卫兵。\n\n"但我只是个小跟班，不是头头。""我了解。"\n\n"我很高兴，它总算过去了。毛主席一走，"文革"就结束了，但之后我们迷茫了好几年。"\n\nP73' },
+    { date: '2023-09-21 16:28', tag: '#读书 / 现代性的隐忧', text: '因此，这些就是我想在这本书中处理的关于现代性的三个隐忧。第一个担心可以称作意义的丧失、道德视野的褪色。第二个是在欣欣向荣的工具理性面前，目的的晦暗。第三个是自由的丧失。' },
+    { date: '2023-02-16 02:29', tag: '#读书 / 福柯 / 疯癫与文明', text: '从福柯早期的作品就能看到他所关注的那个知识、主体与权力的主线。\n\n从他对"人类主体何以把自身当作知识的对象"发问开始，便有了从尼采的"上帝死了"这一认识到福柯的"人死了"这一认识的必然结局。\n\n确实如罗兰·巴特所说这本书是一次对知识的清洗。"福柯提供的是一种思维方式，一定程度上挽救这个世界走向理性权威的极端。"' },
+    { date: '2022-08-15 17:21', tag: '#读书', text: '这里有另一个疑问：\n\n把全国 A 姓氏与 B 姓氏的收入水平做一个调查，即便 A 姓氏比 B 姓氏收入高，其结论也不具备因果性，只有相关性。\n\n女权主义经济学家将性别划分为女性和男性进行统计，所得到的问题从结果进行推导如何证明是因果性而非相关性呢？\n\n经济学通识' },
+    { date: '2022-07-17 17:02', tag: '#读书 / 康德', text: '人的认知并不是对客观事物的直接反映，而是由你先天的认知能力对外在事物进行统摄之后形成的一种认知。\n\n—— 纯粹理性批判' },
+    { date: '2022-06-02 20:44', tag: '#读书 / 福柯', text: '福柯天然反对"我们"，他在任何政治判断和社会实践中都会说不要提"我们"这个观点。\n\n反对者认为"我们"的缺失让其理论只能用在个人改造，而缺失于公共空间领域。\n\n福柯对此的回答是"我们"不能先于问题出现，它的出现只能是我们用一套新词汇提出问题产生结果，且只能是一个暂时性的结果的时候。\n\n对普通人来说，福柯这个观点是一个非常有力的洞察工具，无论是国际争端还是娱乐新闻，我们都可以进行回归。在讨论任何问题时，我们都是在以一个被限定的"我们"作为前提在看问题，其结论必然非常偏见和煽动性。福柯这里强调要"警惕先于政治共识引出政治共识的问题"。' },
+    { date: '2022-06-02 19:11', tag: '#读书', text: '叔本华——东方世界的价值\n尼采——古典悲剧意义的再发现\n弗洛伊德——梦境，理智世界的边缘位置，梦境与潜意识的价值\n巴塔耶——打破一切古老禁忌与社会规范之后的价值' },
+    { date: '2022-05-31 00:37', tag: '#读书 / 福柯 / 疯癫与文明', text: '自恋是疯癫的第一个症状。其原因还在于，人依恋自身，以致以谬误为真理，以谎言为真实，以暴力和丑陋为正义和美。…，在这种虚妄的自恋中，人产生了自己的疯癫幻象。这种疯癫象征从此成为一面镜子，它不反映任何现实，而是秘密地向自我观照的人提供自以为是的梦幻。\n\n我们把艺术的创造归因于发狂的想像；所谓画家、诗人和音乐家的"奇思怪想"，不过是意指他们的疯癫的婉转说法。正是由于这种疯癫，另一种时代、另一种艺术、另一种道德的价值会引起质疑。' },
+    { date: '2022-05-26 19:33', tag: '#读书 / 拉康', text: '任何一套规则可以在规则内部找到自己的正当性，但无法在一个元层面去解释建立规则的合理性。为什么是这套规则而非那套规则？因为那样它会触及一个自己无法象征化的外部，这是一个纯粹逻辑的问题，如果想要找规则的规则，必然会导致无限倒退。用拉康的话来说，"如果象征界是完满的，我们不会增加任何东西。"' },
+    { date: '2022-01-29 10:42', tag: '#读书 / 萨特', text: '没有认识到我们对于创造自我的责任。萨特把这种对个人责任的否弃称为自欺。\n\n"自欺"（mauvaise foi）包括试图通过佯称你的生活已由事实（事实性）所规定，以此作为借口来逃避你对你所是和你将要是的东西所承担的责任，而没有认识到你可以试着把这些事实解释成符合你心意的东西。换言之，自欺是对你不得不创造自我的否定，或者说是对这种责任的拒绝——事实上，你甚至在尝试之前就已经放弃了。' },
+  ];
+
+  /* ===================== RENDER ===================== */
+  var perPage = 30;
+  var currentPage = 1;
+
+  function renderBlog() {
+    var main = document.getElementById('blogMain');
+    if (entries.length === 0) {
+      main.innerHTML =
+        '<div class="blog-empty">日记  ·  备忘</div>';
+      return;
+    }
+    var totalPages = Math.ceil(entries.length / perPage);
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+    var start = (currentPage - 1) * perPage;
+    var end = Math.min(start + perPage, entries.length);
+    var pageEntries = entries.slice(start, end);
+    var html = '';
+    for (var i = 0; i < pageEntries.length; i++) {
+     var e = pageEntries[i];
+     var textHtml = e.text.split('\n').filter(function(l) { return l.trim(); }).map(function(l) { return '<p>' + l + '</p>'; }).join('');
+     html +=
+       '<div class="blog-entry">' +
+         '<div class="blog-tag">' + e.tag + '</div>' +
+         '<div class="blog-date">' + e.date + '</div>' +
+         '<div class="blog-text">' + textHtml + '</div>' +
+       '</div>';
+    }
+     html +=
+       '<div class="blog-pagination" id="blogPagination">' +
+         '<button class="page-btn" id="pagePrev" aria-label="上一页">' +
+           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
+             '<path d="M15 18l-6-6 6-6"></path>' +
+           '</svg>' +
+         '</button>' +
+         '<span class="page-info" id="pageInfo">' + currentPage + '/' + totalPages + '</span>' +
+         '<button class="page-btn" id="pageNext" aria-label="下一页">' +
+           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
+             '<path d="M9 18l6-6-6-6"></path>' +
+           '</svg>' +
+         '</button>' +
+       '</div>';
+   main.innerHTML = html;
+   var nextBtn = document.getElementById('pageNext');
+   if (nextBtn) nextBtn.addEventListener('click', nextPage);
+   var prevBtn = document.getElementById('pagePrev');
+   if (prevBtn) prevBtn.addEventListener('click', prevPage);
+  }
+
+ function nextPage() {
+   var totalPages = Math.ceil(entries.length / perPage);
+   if (currentPage < totalPages) {
+     currentPage++;
+     renderBlog();
+   }
+ }
+
+ function prevPage() {
+   if (currentPage > 1) {
+     currentPage--;
+     renderBlog();
+   }
+ }
+
+ document.addEventListener('DOMContentLoaded', function() {
+   renderBlog();
+ });
+</script>
+<script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blog / Diary — LI ZHIXIN">
+  <title>Decade 2 — LI ZHIXIN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+ <style>
+   .blog-main {
+     margin-left: 360px;
+     margin-right: 40px;
+     width: 480px;
+     max-width: 90vw;
+     padding: 40px 0 100px;
+     min-height: 100vh;
+     text-align: left;
+   }
+
+   .blog-entry {
+     padding: 24px 0;
+   }
+
+   .blog-entry:first-child {
+     padding-top: 0;
+   }
+
+   .blog-tag {
+     font-family: var(--font-body);
+     font-size: 10px;
+     letter-spacing: 0.5px;
+     color: var(--text-secondary);
+     margin-bottom: 2px;
+     font-weight: 500;
+     text-align: left;
+   }
+
+   .blog-date {
+     font-family: var(--font-body);
+     font-size: 11px;
+     letter-spacing: 1px;
+     color: var(--text-muted);
+     margin-bottom: 8px;
+     font-weight: 400;
+     text-align: left;
+   }
+
+   .blog-text {
+     font-family: var(--font-sc);
+     font-size: 15px;
+     line-height: 1.8;
+     color: var(--text-primary);
+     white-space: pre-wrap;
+     text-align: justify;
+   }
+
+   .blog-text p {
+     margin-bottom: 0.6em;
+   }
+
+   .blog-text p:last-child {
+     margin-bottom: 0;
+   }
+
+   .blog-pagination {
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     gap: 10px;
+     margin-top: 40px;
+     padding-left: 4px;
+   }
+
+   .blog-pagination .page-btn {
+     background: none;
+     border: none;
+     cursor: pointer;
+     padding: 4px;
+     color: var(--text-primary);
+     opacity: 0.5;
+     transition: opacity var(--transition);
+   }
+
+   .blog-pagination .page-btn:hover {
+     opacity: 1;
+   }
+
+   .blog-pagination .page-btn svg {
+     width: 18px;
+     height: 18px;
+     display: block;
+   }
+
+   .blog-pagination .page-info {
+     font-family: var(--font-body);
+     font-size: 11px;
+     color: var(--text-secondary);
+     letter-spacing: 0.5px;
+   }
+
+   /* Empty state */
+   .blog-empty {
+     font-family: var(--font-sc);
+     font-size: 14px;
+     color: var(--text-secondary);
+     text-align: center;
+     padding: 80px 0;
+     line-height: 2;
+   }
+
+   @media (max-width: 768px) {
+     .blog-main {
+       margin-left: 0;
+       width: auto;
+       max-width: none;
+       padding: 40px 24px 80px;
+     }
+     .blog-entry {
+       padding: 20px 0;
+     }
+     .blog-text {
+       font-size: 14px;
+     }
+   }
+ </style>
+</head>
+<body>
+
+<div class="site-wrapper">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar" id="sidebar" aria-label="Site navigation">
+    <div class="sidebar-header">
+      <a href="/" class="site-name">LI ZHIXIN</a>
+    </div>
+    <nav class="sidebar-nav" aria-label="Main">
+      <ul>
+        <li>
+          <a href="#" class="sub-menu-toggle">project</a>
+          <div class="sub-menu" id="subMenuProject">
+            <ul>
+              <li><a href="/works-paper-tower.html">paper tower</a></li>
+              <li><a href="/works-roadside-picnic.html">roadside picnic</a></li>
+              <li><a href="/works-1-roll.html">1 roll</a></li>
+              <li><a href="/works-people.html">people</a></li>
+              <li><a href="/works-rhapsody.html">rhapsody</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a href="/works-found-not-lost.html" class="sub-menu-toggle" data-submenu="subMenuFoundNotLost">found not lost</a>
+          <div class="sub-menu" id="subMenuFoundNotLost">
+            <ul>
+              <li><a href="/works-found-not-lost.html#y2026">2026</a></li>
+              <li><a href="/works-found-not-lost.html#y2025">2025</a></li>
+              <li><a href="/works-found-not-lost.html#y2024">2024</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="#">video</a></li>
+        <li>
+          <a href="#" class="sub-menu-toggle" data-submenu="subMenuText">text</a>
+          <div class="sub-menu" id="subMenuText">
+            <ul>
+              <li><a href="/blog-decade-1.html">Decade 1</a></li>
+              <li><a href="/blog-decade-2.html" class="active">Decade 2</a></li>
+              <li><a href="/blog-decade-3.html">Decade 3</a></li>
+              <li><a href="/blog-writing.html">Writing</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="/about.html">about</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Nav toggle (mobile) -->
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+  </button>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- ====== BLOG CONTENT ====== -->
+  <main class="blog-main" id="blogMain">
+
+    <div style="font-family: var(--font-sc); font-size: 15px; line-height: 2; color: var(--text-secondary); padding-top: 20px;">内容待添加。</div>
+
+  </main>
+<script src="/js/main.js"></script>
+</body>
+</html>
