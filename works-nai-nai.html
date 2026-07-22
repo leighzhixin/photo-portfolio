@@ -11,20 +11,72 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/series.css">
   <style>
-    @media (min-width: 769px) {
+    /* Sevenliang-style scroll-snap gallery */
+    .series-main {
+      max-width: none;
+      height: 100vh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .series-header {
+      position: fixed;
+      top: 40px;
+      right: 32px;
+      z-index: 10;
+      text-align: right;
+    }
+
+    .series-photo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0;
+    }
+
+    .series-photo {
+      scroll-snap-align: start;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 100vh;
+      padding: 40px 32px 40px 0;
+      box-sizing: border-box;
+    }
+
+    .series-photo img {
+      max-width: min(72vw, 1000px);
+      max-height: 80vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .series-nav {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 10;
+      margin-top: 0;
+    }
+
+    @media (max-width: 768px) {
       .series-main {
-        position: relative;
+        padding-left: 0;
+        padding-right: 0;
       }
       .series-header {
-        position: absolute;
-        top: 40px;
-        right: 32px;
-        margin-bottom: 0;
-        text-align: right;
-        z-index: 10;
+        top: 16px;
+        right: 20px;
       }
-      .series-photo-list {
-        padding-top: 100px;
+      .series-photo {
+        padding: 20px 20px 20px 0;
+      }
+      .series-photo img {
+        max-width: 85vw;
+        max-height: 70vh;
       }
     }
   </style>
@@ -96,88 +148,53 @@
 
     <div class="series-photo-list">
 
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/01.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/01.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/02.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/02.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/03.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/03.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/04.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/04.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/05.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/05.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/06.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/06.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/07.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/07.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/08.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/08.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/09.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/09.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/10.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/10.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/11.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/11.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/12.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/12.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/13.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/13.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/14.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/14.jpg" alt="" loading="lazy" class="protected-img">
       </div>
-      <div class="series-photo-row series-photo-row--single">
-        <div class="series-photo preview-trigger">
-          <img src="/images/nai-nai/15.jpg" alt="" loading="lazy" class="protected-img">
-        </div>
+      <div class="series-photo">
+        <img src="/images/nai-nai/15.jpg" alt="" loading="lazy" class="protected-img">
       </div>
 
     </div>
-
-    <dialog class="image-preview" id="lightbox" aria-label="Image preview">
-      <button class="preview-close" id="lightboxClose" aria-label="Close preview">Close</button>
-      <img class="preview-image" src="" alt="" id="lightboxImg">
-    </dialog>
 
     <!-- Navigation back -->
     <nav class="series-nav">
@@ -190,6 +207,5 @@
 </div>
 
 <script src="/js/main.js"></script>
-<script src="/js/lightbox.js"></script>
 </body>
 </html>
