@@ -10,7 +10,7 @@
 
 /* ===================== SERIES HEADER ===================== */
 .series-header {
-  margin-bottom: 32px;
+  margin-bottom: 80px;
   text-align: right;
 }
 
@@ -31,6 +31,7 @@
 }
 
 .series-photo {
+  cursor: pointer;
   display: flex;
   justify-content: flex-end;
 }
@@ -54,6 +55,7 @@
 }
 
 .series-photo-row .series-photo {
+  cursor: pointer;
   display: flex;
   justify-content: flex-end;
 }
@@ -113,7 +115,7 @@
   }
 
   .series-header {
-    margin-bottom: 24px;
+    margin-bottom: 48px;
   }
 
   .series-title {
