@@ -27,7 +27,7 @@
 .series-photo-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 80px;
 }
 
 .series-photo {
@@ -50,7 +50,7 @@
 .series-photo-row {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 48px;
 }
 
 .series-photo-row .series-photo {
@@ -121,7 +121,7 @@
   }
 
   .series-photo-list {
-    gap: 6px;
+    gap: 48px;
   }
 
   .series-photo img {
