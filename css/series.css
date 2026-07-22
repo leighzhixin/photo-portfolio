@@ -44,7 +44,7 @@
   object-fit: contain;
   object-position: right;
   display: block;
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 /* ===================== PHOTO ROW (side-by-side groups) ===================== */

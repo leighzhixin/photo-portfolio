@@ -520,7 +520,7 @@ body {
 .photo-item {
   position: relative;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 0;
   overflow: hidden;
   transition: box-shadow var(--transition);
 }
