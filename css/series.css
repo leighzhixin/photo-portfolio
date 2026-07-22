@@ -46,6 +46,26 @@
   border-radius: 3px;
 }
 
+/* ===================== PHOTO ROW (side-by-side groups) ===================== */
+.series-photo-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.series-photo-row .series-photo {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.series-photo-row .series-photo img {
+  max-width: 360px;
+}
+
+.series-photo-row--single .series-photo img {
+  max-width: 720px;
+}
+
 /* ===================== NAVIGATION ===================== */
 .series-nav {
   margin-top: 40px;
@@ -107,4 +127,13 @@
   .series-photo img {
     max-width: 100%;
   }
+
+  .series-photo-row {
+    flex-wrap: wrap;
+  }
+
+  .series-photo-row .series-photo img,
+  .series-photo-row--single .series-photo img {
+    max-width: 100%;
+}
 }
