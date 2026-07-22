@@ -15,6 +15,10 @@
 - 核心页面：首页轮播、Works 系列、Blog、About、Contact
 
 ## 进度时间线
+### 2026-07-23
+- Nai Nai 系列页：从桌面 Grandma 文件夹上传 15 张照片，按顺序排列，统一单行布局 + lightbox 预览
+- 样式对齐 roadside picnic 页：固定标题右上角、series.css 统一样式
+
 
 ### 2026-07-09
 - 建立 AGENTS.md（偏好积累）、PROGRESS.md（进度与踩坑）、CLAUDE.md（自动加载指令）
@@ -87,4 +91,4 @@
 
 ---
 
-*最后更新：2026-07-22*
+*最后更新：2026-07-23*
