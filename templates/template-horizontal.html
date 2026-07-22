@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SERIES NAME — A photography series by LI ZHIXIN">
+  <title>SERIES NAME — LI ZHIXIN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/series.css">
+  <style>
+    /* Desktop: horizontal scroll gallery (paper tower style) */
+    @media (min-width: 769px) {
+      body { overflow: hidden; }
+      .series-main {
+        overflow: hidden;
+        height: 100vh;
+        margin-left: 0 !important;
+        padding: 0 !important;
+      }
+      .series-header {
+        position: fixed;
+        top: 40px;
+        right: 32px;
+        z-index: 10;
+        text-align: right;
+      }
+      .series-photo-list {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 62vh;
+        margin-top: 170px;
+        gap: 40px;
+        padding: 0 40px 0 calc(var(--sidebar-w) + 40px);
+        scrollbar-width: none;
+      }
+      .series-photo-list::-webkit-scrollbar { display: none; }
+      .series-photo {
+        flex: 0 0 auto;
+        height: 100%;
+      }
+      .series-photo:first-child { margin-left: 4px; }
+      .series-photo img {
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+      }
+      .series-nav {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        z-index: 10;
+        margin-top: 0;
+      }
+      .sidebar {
+        background: transparent !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="site-wrapper">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar" id="sidebar" aria-label="Site navigation">
+    <div class="sidebar-header">
+      <a href="/" class="site-name">LI ZHIXIN</a>
+    </div>
+    <nav class="sidebar-nav" aria-label="Main">
+      <ul>
+        <li class="has-sub-menu">
+          <a href="#" class="sub-menu-toggle" style="font-weight:600">project</a>
+          <div class="sub-menu" id="subMenuProject">
+            <ul>
+              <li><a href="/works-paper-tower.html">paper tower</a></li>
+              <li><a href="/works-roadside-picnic.html">roadside picnic</a></li>
+              <li><a href="/works-people.html">people</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a href="/works-found-not-lost.html" class="sub-menu-toggle" data-submenu="subMenuFoundNotLost">found not lost</a>
+          <div class="sub-menu" id="subMenuFoundNotLost">
+            <ul>
+              <li><a href="/works-found-not-lost.html#y2026">2026</a></li>
+              <li><a href="/works-found-not-lost.html#y2025">2025</a></li>
+              <li><a href="/works-found-not-lost.html#y2024">2024</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="#">video</a></li>
+        <li>
+          <a href="#" class="sub-menu-toggle" data-submenu="subMenuText">text</a>
+          <div class="sub-menu" id="subMenuText">
+            <ul>
+              <li><a href="/blog-decade-1.html">Decade 1</a></li>
+              <li><a href="/blog-decade-2.html">Decade 2</a></li>
+              <li><a href="/blog-decade-3.html">Decade 3</a></li>
+              <li><a href="/blog-writing.html">Writing</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="/about.html">about</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Nav toggle (mobile) -->
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+  </button>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main-content series-main">
+
+    <!-- Series Header -->
+    <div class="series-header">
+      <h1 class="series-title">SERIES NAME</h1>
+    </div>
+
+    <!--
+      Horizontal scroll gallery — desktop scrolls horizontally, mobile falls back to vertical.
+      Each .series-photo is one photo; add more as needed.
+    -->
+    <div class="series-photo-list">
+
+      <!-- Add your photos here:
+      <div class="series-photo preview-trigger">
+        <img src="/images/your-series/01.jpg" alt="" loading="lazy" class="protected-img">
+      </div>
+      -->
+
+    </div>
+
+    <!-- Navigation back -->
+    <nav class="series-nav">
+      <a href="/" class="series-back-link">&larr; All Works</a>
+    </nav>
+
+    <div class="page-credit">© LI ZHIXIN 2026</div>
+
+  </main>
+</div>
+
+<script src="/js/main.js"></script>
+
+<script>
+(function() {
+  'use strict';
+  if (!window.matchMedia('(min-width: 769px)').matches) return;
+  var gallery = document.querySelector('.series-photo-list');
+  if (!gallery) return;
+  window.addEventListener('wheel', function(e) {
+    var el = e.target;
+    var inGallery = false;
+    while (el) {
+      if (el === gallery) { inGallery = true; break; }
+      el = el.parentElement;
+    }
+    if (inGallery) {
+      var dy = Math.abs(e.deltaY), dx = Math.abs(e.deltaX);
+      if (dy > dx && dy > 2) {
+        e.preventDefault();
+        gallery.scrollLeft += e.deltaY;
+      }
+    }
+  }, { passive: false, capture: true });
+})();
+</script>
+</body>
+</html>
