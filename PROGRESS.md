@@ -15,6 +15,13 @@
 - 核心页面：首页轮播、Works 系列、Blog、About、Contact
 
 ## 进度时间线
+### 2026-08-05
+- 全站启用 Vercel Web Analytics：17 个 HTML 文件（含模板）添加 `/_vercel/insights/script.js` script 标签
+  - 纯 HTML 站点不走 Next.js 的 npm 包 + React 组件方式，直接用 Vercel 托管的 script 端点
+
+### 2026-07-24
+- Nai Nai 系列：从桌面 Grandma 重新上传 29 张照片，按 01-29 顺序排列，scroll-snap 全屏画廊保持不变
+
 ### 2026-07-23
 - Nai Nai 系列页：从桌面 Grandma 文件夹上传 15 张照片，按顺序排列，统一单行布局 + lightbox 预览
 - 样式对齐 roadside picnic 页：固定标题右上角、series.css 统一样式
@@ -91,4 +98,4 @@
 
 ---
 
-*最后更新：2026-07-23*
+*最后更新：2026-08-05*
