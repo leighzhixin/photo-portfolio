@@ -16,6 +16,7 @@
 
 ## 进度时间线
 ### 2026-08-05
+- 启用 Vercel Speed Insights：17 个 HTML 文件添加 `/_vercel/speed-insights/script.js` script 标签
 - 全站启用 Vercel Web Analytics：17 个 HTML 文件（含模板）添加 `/_vercel/insights/script.js` script 标签
   - 纯 HTML 站点不走 Next.js 的 npm 包 + React 组件方式，直接用 Vercel 托管的 script 端点
 
