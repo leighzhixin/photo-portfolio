@@ -15,6 +15,10 @@
 - 核心页面：首页轮播、Works 系列、Blog、About、Contact
 
 ## 进度时间线
+### 2026-08-08
+- 重构项目知识管理：将 `CLAUDE.md` 的流程整合进 Codex 自动识别的 `AGENTS.md`，并将 `README.md` 改为唯一项目入口与按需阅读导航
+- 后续文档按实际长期需求创建，不预建空文件；新会话按单一任务工作，完成后只沉淀有效的长期知识
+
 ### 2026-08-05
 - 启用 Vercel Speed Insights：17 个 HTML 文件添加 `/_vercel/speed-insights/script.js` script 标签
 - 全站启用 Vercel Web Analytics：17 个 HTML 文件（含模板）添加 `/_vercel/insights/script.js` script 标签
@@ -99,4 +103,4 @@
 
 ---
 
-*最后更新：2026-08-05*
+*最后更新：2026-08-08*
