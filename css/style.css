@@ -511,6 +511,18 @@ body {
   letter-spacing: 1.5px;
 }
 
+.month-section + .month-section {
+  margin-top: 32px;
+}
+.month-section-title {
+  margin-bottom: 16px;
+  font-family: var(--font-sc);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-align: right;
+}
+
 /* ===================== PHOTO GRID ===================== */
 .photo-grid {
   display: grid;

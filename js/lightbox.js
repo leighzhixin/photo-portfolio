@@ -46,8 +46,17 @@
   // Close lightbox
   function close() {
     dialog.close();
-    document.body.style.overflow = '';
   }
+
+  // Restore scrolling for every close path, including native Escape.
+  dialog.addEventListener('close', function () {
+    document.body.style.overflow = '';
+  });
+
+  // Only the empty dialog area dismisses the preview; the photo stays interactive.
+  dialog.addEventListener('click', function (e) {
+    if (e.target === dialog) close();
+  });
 
   // Navigate
   function prev() {
