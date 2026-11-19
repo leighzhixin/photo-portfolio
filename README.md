@@ -24,7 +24,7 @@ LI ZHIXIN 的个人摄影作品网站，用于展示摄影系列、个人写作�
 - 图片保护：禁用右键与拖拽
 - 响应式桌面端与移动端布局
 
-当前摄影系列包括 People、Paper Tower、Roadside Picnic、Lost Not Found 和 Nai Nai；博客包含 Decade 系列与 Writing 页面。
+当前摄影系列包括 People、Paper Tower、Roadside Picnic、Found Not Lost 和 Nai Nai；博客包含 Decade 系列与 Writing 页面。
 
 ## 主要结构
 
