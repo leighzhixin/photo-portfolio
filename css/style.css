@@ -583,7 +583,7 @@ body {
   display: none;
 }
 .image-preview::backdrop {
-  background: rgba(20, 20, 20, 0.68);
+  background: rgba(255, 255, 255, 0.97);
 }
 .preview-image {
   display: block;
@@ -592,7 +592,7 @@ body {
   width: auto;
   height: auto;
   object-fit: contain;
-  box-shadow: rgba(0, 0, 0, 0.28) 0px 18px 40px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
   margin: 0 auto;
 }
 .preview-close {
@@ -602,7 +602,7 @@ body {
   z-index: 2;
   border: 0;
   background: transparent;
-  color: #fff;
+  color: var(--text-primary);
   font-family: var(--font-ui, 'Inter', -apple-system, BlinkMacSystemFont, sans-serif);
   font-size: 0.75rem;
   letter-spacing: 0.06em;
